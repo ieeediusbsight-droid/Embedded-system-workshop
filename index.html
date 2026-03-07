@@ -1,0 +1,1359 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Embedded System & IoT Workshop — IEEE DIU SB SIGHT</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box }
+    :root {
+      --gd: #2d5016; --gdr: #1a3a0f; --gm: #4a7c2c; --gl: #8bc34a;
+      --gp: #c5e1a5; --gbg: #f1f8e9; --gbg2: #dcedc8; --tg: #558b2f;
+      --w: #fff; --ieee: #006699; --ieee2: #00aadd;
+    }
+    html { scroll-behavior: smooth; scroll-padding-top: 66px }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #333; line-height: 1.6; overflow-x: hidden }
+    ::-webkit-scrollbar { width: 5px }
+    ::-webkit-scrollbar-track { background: var(--gbg) }
+    ::-webkit-scrollbar-thumb { background: var(--gl); border-radius: 3px }
+
+    /* NAV */
+    nav { background: linear-gradient(135deg, var(--gd), var(--gdr)); padding: .55rem 0; position: sticky; top: 0; z-index: 900; box-shadow: 0 2px 15px rgba(45,80,22,.45); backdrop-filter: blur(10px) }
+    nav .c { max-width: 1200px; margin: 0 auto; padding: 0 1.4rem; display: flex; justify-content: space-between; align-items: center }
+    .nav-logo { color: #fff; font-weight: 700; display: flex; align-items: center; gap: .5rem; font-size: .95rem }
+    .nav-logo img { height: 34px; width: 34px; object-fit: contain }
+    .ieee-badge { background: linear-gradient(135deg, var(--ieee), var(--ieee2)); color: #fff; font-size: .65rem; font-weight: 700; padding: 2px 8px; border-radius: 10px; letter-spacing: 1px; margin-left: 4px }
+    nav ul { list-style: none; display: flex; gap: .5rem; align-items: center }
+    nav a { color: rgba(255,255,255,.9); text-decoration: none; transition: all .3s; position: relative; padding: .35rem 0; font-size: .85rem }
+    nav a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--gl); transition: width .3s }
+    nav a:hover::after { width: 100% }
+    nav a:hover { color: #fff }
+    .nav-btn { background: linear-gradient(135deg,#da5b16,#e07b42)!important; color:#fff!important; padding:.4rem 1.1rem; border-radius:25px; font-weight:700; font-size:.82rem; box-shadow:0 3px 10px rgba(218,91,22,.3); white-space:nowrap }
+    .nav-btn::after { display:none!important }
+    .nav-btn:hover { transform:translateY(-2px); box-shadow:0 6px 16px rgba(218,91,22,.4) }
+    .nav-admin-btn { background:rgba(255,255,255,.12)!important; color:#fff!important; padding:.4rem 1rem; border-radius:25px; font-weight:700; font-size:.82rem; border:1px solid rgba(255,255,255,.25); white-space:nowrap; cursor:pointer }
+    .nav-admin-btn:hover { background:rgba(255,255,255,.22)!important }
+    .nav-admin-btn::after { display:none!important }
+    .mob-btn { display:none; background:none; border:none; color:#fff; font-size:1.5rem; cursor:pointer }
+
+    /* HERO */
+    .hero { position:relative; height:100vh; min-height:600px; display:flex; align-items:center; justify-content:center; overflow:hidden }
+    .hero-bg { position:absolute; inset:0; background:linear-gradient(135deg,rgba(74,124,44,0.6),rgba(45,80,22,0.6)),url('https://lh3.googleusercontent.com/d/13GegJ4rf8hjLU_6Cw1VC0WxwVZPozajx') center/cover }
+    .hero-bg::before { content:''; position:absolute; inset:0; background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"><path d="M0,60 Q300,0 600,60 T1200,60 L1200,0 L0,0 Z" fill="rgba(139,195,74,0.12)"/></svg>') repeat-x; animation:wave 22s linear infinite }
+    .hero-bg::after { content:''; position:absolute; inset:0; background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"><path d="M0,80 Q400,20 800,80 T1200,80 L1200,0 L0,0 Z" fill="rgba(0,102,153,0.08)"/></svg>') repeat-x bottom; animation:wave2 18s linear infinite }
+    .hero-ov { position:absolute; inset:0; background:linear-gradient(135deg,rgba(26,58,15,.35),rgba(0,60,100,.25)); z-index:1 }
+    @keyframes wave { 0%{background-position:0 0} 100%{background-position:1200px 0} }
+    @keyframes wave2 { 0%{background-position:0 0} 100%{background-position:-1200px 0} }
+    .hero-content { position:relative; z-index:3; text-align:center; color:#fff; max-width:920px; padding:0 20px }
+    .hero h1 { font-size:clamp(2rem,5vw,3.8rem); font-weight:800; line-height:1.15; text-shadow:2px 2px 20px rgba(0,0,0,.4); margin-bottom:12px; animation:fadeUp .9s ease both .1s }
+    .hero h1 span { color:var(--gl) }
+    .hero-sub { font-size:1.15rem; font-weight:300; opacity:.9; margin-bottom:8px; animation:fadeUp 1s ease both .2s }
+    .hero-desc { font-size:.95rem; opacity:.78; max-width:650px; margin:0 auto 26px; animation:fadeUp 1s ease both .28s; line-height:1.7 }
+    .hero-meta { display:flex; justify-content:center; gap:12px; flex-wrap:wrap; margin-bottom:28px; animation:fadeUp 1s ease both .35s }
+    .meta-pill { background:rgba(255,255,255,.1); border:1px solid rgba(139,195,74,.3); padding:7px 15px; border-radius:30px; font-size:.83rem; display:flex; align-items:center; gap:6px; backdrop-filter:blur(6px) }
+    .hero-btns { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; animation:fadeUp 1s ease both .42s }
+    .btn { padding:.85rem 1.8rem; border:none; border-radius:50px; font-size:.95rem; cursor:pointer; transition:all .3s; text-decoration:none; display:inline-flex; align-items:center; gap:.5rem; font-weight:700 }
+    .btn-p { background:linear-gradient(135deg,var(--gl),#689f38); color:#fff; box-shadow:0 5px 15px rgba(76,175,80,.35) }
+    .btn-s { background:rgba(255,255,255,.1); color:#fff; border:2px solid rgba(139,195,74,.45); backdrop-filter:blur(10px) }
+    .btn-ieee { background:linear-gradient(135deg,var(--ieee),var(--ieee2)); color:#fff; box-shadow:0 5px 15px rgba(0,102,153,.35) }
+    .btn:hover { transform:translateY(-4px) scale(1.04); box-shadow:0 14px 30px rgba(0,0,0,.2) }
+    .scroll-ind { position:absolute; bottom:26px; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:6px; color:rgba(255,255,255,.4); font-size:.65rem; letter-spacing:2px; animation:fadeUp 1s ease both .8s }
+    .scroll-line { width:1px; height:36px; background:linear-gradient(to bottom,var(--gl),transparent); animation:scrollA 1.6s ease-in-out infinite }
+    @keyframes scrollA { 0%{opacity:0;transform:scaleY(0);transform-origin:top} 50%{opacity:1;transform:scaleY(1)} 100%{opacity:0;transform-origin:bottom} }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes slideUpStagger { 0%{opacity:0;transform:translateY(40px)} 100%{opacity:1;transform:translateY(0)} }
+    @keyframes zoomInStagger { 0%{opacity:0;transform:scale(0.85)} 100%{opacity:1;transform:scale(1)} }
+    @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+
+    /* SECTIONS */
+    section { padding:5rem 2rem }
+    .c { max-width:1200px; margin:0 auto }
+    section h2 { font-size:clamp(1.7rem,3.5vw,2.8rem); margin-bottom:.8rem; text-align:center; background:linear-gradient(135deg,var(--gm),var(--gd)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text }
+    .ssub { text-align:center; color:var(--tg); font-size:1.05rem; margin-bottom:3rem }
+    .sa { background:linear-gradient(135deg,var(--gbg),var(--gbg2)) }
+
+    /* ABOUT */
+    .about-wrap { background:#fff; border-radius:24px; padding:4rem; box-shadow:0 20px 60px rgba(0,0,0,.1); position:relative; overflow:hidden; border:1px solid rgba(139,195,74,.15) }
+    .about-wrap::before { content:''; position:absolute; top:0; left:0; width:100%; height:6px; background:linear-gradient(90deg,var(--gl),var(--gm),var(--gd),var(--gl)); background-size:200% 100%; animation:gradientShift 4s ease infinite }
+    @keyframes gradientShift { 0%{background-position:0 0} 50%{background-position:100% 0} 100%{background-position:0 0} }
+    .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:center }
+    .about-left { position:relative }
+    .about-left::after { content:''; position:absolute; right:-30px; top:50%; transform:translateY(-50%); width:2px; height:80%; background:linear-gradient(180deg,rgba(139,195,74,.3),rgba(139,195,74,.8),rgba(139,195,74,.3)) }
+    .about-title { font-size:1.8rem; font-weight:800; color:var(--gm); margin-bottom:1.5rem; line-height:1.3 }
+    .about-title span { color:var(--gl); display:block }
+    .about-item { display:flex; align-items:flex-start; gap:1.2rem; margin-bottom:1.8rem }
+    .about-icon { width:50px; height:50px; background:linear-gradient(135deg,var(--gl),var(--gm)); border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:1.8rem; flex-shrink:0; box-shadow:0 8px 20px rgba(139,195,74,.2) }
+    .about-content h3 { color:var(--gm); font-size:1.1rem; font-weight:700; margin-bottom:.5rem }
+    .about-content p { color:var(--tg); font-size:.9rem; line-height:1.75 }
+    .about-stats-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem }
+    .stat-block { background:linear-gradient(135deg,var(--gbg),var(--gbg2)); padding:2rem 1.5rem; border-radius:16px; border-left:4px solid var(--gl); text-align:center; transition:all .4s }
+    .stat-block:hover { transform:translateY(-8px); box-shadow:0 12px 30px rgba(76,175,80,.15) }
+    .stat-number { font-size:2.5rem; font-weight:900; background:linear-gradient(135deg,var(--gl),var(--gm)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; margin-bottom:.5rem }
+    .stat-label { font-size:.8rem; color:var(--tg); letter-spacing:1px; text-transform:uppercase; font-weight:700 }
+    .about-highlight { background:linear-gradient(135deg,rgba(139,195,74,.1),rgba(168,221,82,.1)); padding:1.5rem; border-radius:12px; border-left:4px solid var(--gl); margin-top:2rem }
+    .about-highlight p { color:var(--tg); font-size:.95rem; line-height:1.8; margin:0 }
+    .about-highlight strong { color:var(--gm); font-weight:700 }
+
+    /* TOPICS */
+    .tgrid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:1.8rem; margin-top:2rem }
+    .tcard { background:#fff; padding:2rem 1.8rem; border-radius:18px; box-shadow:0 8px 24px rgba(0,0,0,.08); transition:all .4s cubic-bezier(.175,.885,.32,1.275); position:relative; overflow:hidden; text-align:center }
+    .tcard::before { content:''; position:absolute; top:0; left:0; width:100%; height:4px; background:linear-gradient(90deg,var(--gl),transparent); transform:scaleX(0); transform-origin:left; transition:transform .4s }
+    .tcard:hover::before { transform:scaleX(1) }
+    .tcard:hover { transform:translateY(-8px) scale(1.02); box-shadow:0 20px 40px rgba(76,175,80,.25) }
+    .tico { font-size:3.2rem; margin-bottom:1rem; animation:float 3s ease-in-out infinite }
+    .tcard h4 { color:var(--gm); font-size:1.05rem; margin-bottom:8px; font-weight:700 }
+    .tcard p { color:var(--tg); font-size:.88rem; line-height:1.7 }
+
+    /* SCHEDULE */
+    .dtabs { display:flex; margin-bottom:26px; width:fit-content; gap:.5rem }
+    .dtab { padding:11px 28px; cursor:pointer; background:transparent; border:2px solid rgba(45,80,22,.25); color:var(--tg); font-weight:700; font-size:.88rem; transition:all .3s; border-radius:25px }
+    .dtab.active { background:linear-gradient(135deg,var(--gm),var(--gd)); color:#fff; border-color:var(--gm) }
+    .dtab:not(.active):hover { border-color:var(--gm); color:var(--gm) }
+    .sc { display:none } .sc.active { display:block }
+    .tl { position:relative; padding-left:42px }
+    .tl::before { content:''; position:absolute; left:11px; top:0; bottom:0; width:4px; background:linear-gradient(180deg,var(--gl),var(--gm),rgba(45,80,22,.2)); border-radius:2px }
+    .tli { position:relative; margin-bottom:1.4rem; animation:fadeUp .5s ease both }
+    .tli:nth-child(1){animation-delay:.1s}.tli:nth-child(2){animation-delay:.2s}.tli:nth-child(3){animation-delay:.3s}.tli:nth-child(4){animation-delay:.4s}
+    .tli::before { content:''; position:absolute; left:-34px; top:10px; width:13px; height:13px; border-radius:50%; background:linear-gradient(135deg,var(--gl),var(--gm)); border:3px solid #fff; box-shadow:0 0 0 3px rgba(139,195,74,.3),0 4px 10px rgba(76,175,80,.3) }
+    .tlb { background:#fff; padding:1.2rem 1.6rem; border-radius:14px; box-shadow:0 5px 18px rgba(0,0,0,.08); border-left:4px solid transparent; transition:all .3s }
+    .tlb:hover { border-left-color:var(--gl); transform:translateX(5px); box-shadow:0 8px 24px rgba(76,175,80,.18) }
+    .tlt { font-size:.7rem; font-weight:700; color:var(--gl); letter-spacing:1.5px; text-transform:uppercase; margin-bottom:3px }
+    .tln { font-size:1rem; font-weight:700; color:var(--gm); margin-bottom:3px }
+    .tld { font-size:.85rem; color:var(--tg) }
+
+    /* QUIZ */
+    .quiz-section { background:linear-gradient(135deg,var(--gd),var(--gdr)); position:relative; overflow:hidden }
+    .quiz-section::before { content:'🧠'; position:absolute; font-size:18rem; opacity:.04; right:-3rem; top:-3rem; animation:float 10s ease-in-out infinite }
+    .quiz-section h2 { -webkit-text-fill-color:#fff; color:#fff; background:none }
+    .quiz-section .ssub { color:rgba(255,255,255,.75) }
+    .quiz-cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:2rem; margin-top:2rem }
+    .qcard { background:rgba(255,255,255,.1); border:1px solid rgba(139,195,74,.25); padding:2rem; border-radius:20px; text-align:center; backdrop-filter:blur(10px); transition:all .4s cubic-bezier(.175,.885,.32,1.275) }
+    .qcard:hover { background:rgba(255,255,255,.16); transform:translateY(-8px); box-shadow:0 20px 40px rgba(0,0,0,.3) }
+    .qcard-icon { font-size:3rem; margin-bottom:1rem; animation:bounce 2.5s ease-in-out infinite }
+    .qcard h3 { color:#fff; font-size:1.2rem; margin-bottom:.6rem }
+    .qcard p { color:rgba(255,255,255,.78); font-size:.9rem; line-height:1.7 }
+    .qcard .badge { display:inline-block; margin-top:.8rem; background:linear-gradient(135deg,var(--gl),#689f38); color:#fff; padding:4px 14px; border-radius:20px; font-size:.78rem; font-weight:700 }
+    .quiz-note { background:rgba(255,193,7,.15); border:1px solid rgba(255,193,7,.35); border-radius:16px; padding:1.5rem 2rem; margin-top:2rem; color:rgba(255,255,255,.88); text-align:center; font-size:.95rem; line-height:1.75 }
+    .quiz-note strong { color:#ffd54f }
+
+    /* BENEFITS */
+    .benefits-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1.8rem; margin-top:2rem }
+    .bcard { background:#fff; padding:2rem 1.8rem; border-radius:18px; box-shadow:0 8px 24px rgba(0,0,0,.08); text-align:center; transition:all .4s cubic-bezier(.175,.885,.32,1.275) }
+    .bcard:hover { transform:translateY(-8px) scale(1.02); box-shadow:0 20px 40px rgba(76,175,80,.22) }
+    .bico { font-size:3rem; margin-bottom:.8rem; animation:bounce 2.5s ease-in-out infinite }
+    .bcard h3 { color:var(--gm); font-size:1rem; margin-bottom:.5rem; font-weight:700 }
+    .bcard p { color:var(--tg); font-size:.88rem; line-height:1.6 }
+
+    /* INSTRUCTOR */
+    .inst-wrap { background:linear-gradient(135deg,var(--gd),var(--gdr)) }
+    .inst-wrap h2 { -webkit-text-fill-color:#fff; color:#fff; background:none }
+    .inst-wrap .ssub { color:rgba(255,255,255,.75) }
+    .inst-card { background:rgba(255,255,255,.09); border:1px solid rgba(139,195,74,.25); padding:3rem; border-radius:24px; display:flex; gap:3rem; align-items:flex-start; backdrop-filter:blur(10px); transition:all .3s; margin-bottom:2rem }
+    .inst-card:hover { background:rgba(255,255,255,.13); box-shadow:0 20px 50px rgba(0,0,0,.3) }
+    .inst-img-w { position:relative; flex-shrink:0 }
+    .inst-img-w::before { content:''; position:absolute; inset:-4px; border-radius:18px; background:linear-gradient(135deg,var(--gl),var(--gm)); z-index:-1 }
+    .inst-img { width:160px; height:160px; object-fit:cover; border-radius:14px; display:block }
+    .inst-name { font-size:1.55rem; font-weight:800; color:#fff; margin-bottom:5px }
+    .inst-role { font-size:.8rem; color:var(--gp); letter-spacing:2px; text-transform:uppercase; margin-bottom:14px }
+    .inst-bio { color:rgba(255,255,255,.82); line-height:1.85; margin-bottom:16px; font-size:.95rem; text-align:justify }
+    .inst-tags { display:flex; flex-wrap:wrap; gap:7px; margin-bottom:16px }
+    .tag { background:rgba(139,195,74,.18); border:1px solid rgba(139,195,74,.35); color:var(--gp); padding:3px 12px; border-radius:20px; font-size:.75rem; font-weight:600 }
+    .inst-link { display:inline-flex; align-items:center; gap:8px; background:linear-gradient(135deg,var(--gl),#689f38); color:#fff; text-decoration:none; padding:9px 20px; border-radius:30px; font-size:.88rem; font-weight:700; transition:all .3s }
+    .inst-link:hover { transform:translateY(-3px); box-shadow:0 8px 20px rgba(76,175,80,.4) }
+    .inst-extra { background:rgba(0,102,153,.2); border:1px solid rgba(0,170,221,.3); border-radius:14px; padding:1.2rem 1.5rem; margin-top:1rem }
+    .inst-extra p { color:rgba(255,255,255,.82); font-size:.88rem; line-height:1.7 }
+    .inst-extra strong { color:#7dd8ff }
+
+    /* CERT */
+    .cert-section { background:linear-gradient(135deg,var(--gd),var(--gdr)) }
+    .cert-section h2 { -webkit-text-fill-color:#fff; color:#fff; background:none }
+    .cert-section .ssub { color:rgba(255,255,255,.75) }
+    .cert-lookup { max-width:600px; margin:0 auto; text-align:center }
+    .cert-input-wrap { display:flex; gap:0; margin-bottom:24px; border-radius:50px; overflow:hidden; box-shadow:0 8px 30px rgba(0,0,0,.3) }
+    .cert-input { flex:1; padding:1rem 1.5rem; border:none; font-family:inherit; font-size:1rem; outline:none; background:#fff; color:#333 }
+    .cert-btn { padding:1rem 1.8rem; background:linear-gradient(135deg,var(--gl),#689f38); color:#fff; border:none; font-size:.9rem; font-weight:700; cursor:pointer; transition:all .3s; white-space:nowrap }
+    .cert-btn:hover { background:linear-gradient(135deg,#9cce5a,#76ab42) }
+    .cert-result { background:rgba(255,255,255,.1); border:1px solid rgba(139,195,74,.3); border-radius:20px; padding:2rem; backdrop-filter:blur(10px); display:none; text-align:left }
+    .cert-result.show { display:block; animation:fadeUp .4s ease }
+    .cert-result h3 { color:#fff; font-size:1.3rem; margin-bottom:.5rem }
+    .cert-result p { color:rgba(255,255,255,.8); font-size:.95rem; margin-bottom:1rem; line-height:1.7 }
+    .cert-dl-btn { display:inline-flex; align-items:center; gap:8px; background:linear-gradient(135deg,var(--gl),#689f38); color:#fff; text-decoration:none; padding:12px 24px; border-radius:30px; font-weight:700; font-size:.9rem; transition:all .3s; border:none; cursor:pointer }
+    .cert-dl-btn:hover { transform:translateY(-3px); box-shadow:0 8px 20px rgba(76,175,80,.4) }
+    .cert-note { color:rgba(255,255,255,.6); font-size:.82rem; margin-top:1rem }
+    .cert-not-found { background:rgba(255,100,100,.1); border:1px solid rgba(255,100,100,.3); border-radius:16px; padding:1.5rem; color:rgba(255,255,255,.8); text-align:center; display:none }
+    .cert-not-found.show { display:block; animation:fadeUp .4s ease }
+
+    /* REGISTRATION */
+    .reg-wrap { background:linear-gradient(135deg,var(--gd),var(--gdr)) }
+    .reg-wrap h2 { -webkit-text-fill-color:#fff; color:#fff; background:none }
+    .reg-wrap .ssub { color:rgba(255,255,255,.75) }
+    .reg-card { background:#fff; border-radius:24px; padding:3rem; max-width:780px; margin:0 auto; box-shadow:0 20px 60px rgba(0,0,0,.3) }
+    .fg { display:grid; grid-template-columns:1fr 1fr; gap:17px }
+    .fgrp { display:flex; flex-direction:column; gap:5px }
+    .fgrp.full { grid-column:1/-1 }
+    .flbl { font-size:.72rem; font-weight:700; color:var(--gm); letter-spacing:1.5px; text-transform:uppercase }
+    .finp,.fsel { background:var(--gbg); border:1.5px solid var(--gbg2); color:#333; padding:11px 14px; border-radius:10px; font-family:inherit; font-size:.95rem; outline:none; transition:border-color .3s,box-shadow .3s; width:100% }
+    .finp:focus,.fsel:focus { border-color:var(--gl); box-shadow:0 0 0 3px rgba(139,195,74,.18); background:#fff }
+    .finp::placeholder { color:#bbb }
+    .fsel option { background:#fff }
+    .fsub { grid-column:1/-1; padding:14px 28px; width:100%; background:linear-gradient(135deg,var(--gl),#689f38); color:#fff; border:none; border-radius:50px; font-size:.97rem; font-weight:700; cursor:pointer; transition:all .3s; box-shadow:0 6px 20px rgba(76,175,80,.35); position:relative; overflow:hidden }
+    .fsub:hover { transform:translateY(-3px); box-shadow:0 12px 30px rgba(76,175,80,.5) }
+    .fsub:disabled { opacity:.65; cursor:not-allowed; transform:none }
+    .cfg-banner { grid-column:1/-1; background:linear-gradient(135deg,#fff9e6,#ffecb3); border-left:5px solid #ffc107; padding:13px 17px; border-radius:10px; font-size:.78rem; color:#856404; line-height:1.8 }
+    .cfg-banner strong { color:#5d4307 }
+
+    /* FOOTER */
+    footer { background:linear-gradient(135deg,var(--gd),var(--gdr)); color:#fff; text-align:center; padding:3rem 2rem; box-shadow:0 -5px 20px rgba(45,80,22,.2) }
+    .flogos { display:flex; justify-content:center; align-items:center; gap:2.5rem; flex-wrap:wrap; margin-bottom:1rem }
+    .flogo { text-align:center; transition:transform .3s }
+    .flogo:hover { transform:translateY(-8px) }
+    .flogo img { width:95px; height:95px; object-fit:contain; background:#fff; padding:13px; border-radius:50%; box-shadow:0 5px 20px rgba(0,0,0,.2); transition:all .3s }
+    .flogo img:hover { box-shadow:0 10px 30px rgba(139,195,74,.4); transform:scale(1.05) }
+    .flogo p { color:#fff; font-weight:600; font-size:.82rem; margin-top:7px; opacity:.9 }
+    .fdiv { width:80%; height:2px; margin:1.5rem auto; background:linear-gradient(90deg,transparent,var(--gl),transparent) }
+
+    /* MODAL */
+    .mov { display:none; position:fixed; inset:0; z-index:800; background:rgba(26,58,15,.9); backdrop-filter:blur(8px); align-items:center; justify-content:center; padding:20px }
+    .mov.show { display:flex }
+    .mbox { background:#fff; border-radius:24px; padding:40px; max-width:460px; width:100%; text-align:center; box-shadow:0 30px 80px rgba(0,0,0,.35); animation:zoomIn .4s cubic-bezier(.175,.885,.32,1.275) }
+    @keyframes zoomIn { from{transform:scale(.8);opacity:0} to{transform:scale(1);opacity:1} }
+    .mico { font-size:3.5rem; margin-bottom:12px }
+    .mtit { font-size:1.5rem; font-weight:800; color:var(--gm); margin-bottom:10px }
+    .msub { color:var(--tg); line-height:1.75; margin-bottom:18px; font-size:.97rem }
+    .mid { background:linear-gradient(135deg,var(--gbg),var(--gbg2)); border:2px solid var(--gl); border-radius:12px; padding:12px 20px; margin-bottom:20px; font-size:1rem; font-weight:700; color:var(--gm); letter-spacing:2px }
+    .mcl { padding:12px 32px; border-radius:30px; background:linear-gradient(135deg,var(--gl),#689f38); color:#fff; border:none; cursor:pointer; font-size:.92rem; font-weight:700; transition:all .3s }
+    .mcl:hover { transform:translateY(-2px); box-shadow:0 8px 20px rgba(76,175,80,.4) }
+
+    /* TOAST */
+    #toast { position:fixed; bottom:28px; right:28px; z-index:600; padding:13px 20px; border-radius:12px; font-size:.83rem; font-weight:700; transform:translateX(200%); transition:transform .4s cubic-bezier(.175,.885,.32,1.275); max-width:290px; box-shadow:0 8px 24px rgba(0,0,0,.2) }
+    #toast.show { transform:translateX(0) }
+    #toast.success { background:linear-gradient(135deg,var(--gl),#689f38); color:#fff }
+    #toast.error { background:linear-gradient(135deg,#e53935,#c62828); color:#fff }
+
+    /* ══════════════════════════════════════
+       ADMIN PANEL — REDESIGNED
+    ══════════════════════════════════════ */
+    .admin-ov { display:none; position:fixed; inset:0; z-index:950; background:#0b1a0d; overflow-y:auto }
+    .admin-ov.show { display:block }
+
+    /* Sidebar layout */
+    .admin-layout { display:flex; min-height:100vh }
+    .admin-sidebar { width:240px; background:linear-gradient(180deg,#142a09,#0b1a0d); border-right:1px solid rgba(139,195,74,.12); padding:1.5rem 0; flex-shrink:0; position:sticky; top:0; height:100vh; overflow-y:auto }
+    .admin-logo { padding:0 1.5rem 1.5rem; border-bottom:1px solid rgba(139,195,74,.1); margin-bottom:1rem }
+    .admin-logo-title { font-size:.95rem; font-weight:800; color:#fff; margin-bottom:2px }
+    .admin-logo-sub { font-size:.68rem; color:rgba(255,255,255,.4); letter-spacing:1px; text-transform:uppercase }
+    .admin-nav { padding:0 .8rem }
+    .admin-nav-item { display:flex; align-items:center; gap:.7rem; padding:.7rem .9rem; border-radius:10px; color:rgba(255,255,255,.55); font-size:.82rem; font-weight:600; cursor:pointer; transition:all .25s; margin-bottom:2px; border:none; background:none; width:100%; text-align:left }
+    .admin-nav-item:hover { background:rgba(139,195,74,.1); color:rgba(255,255,255,.85) }
+    .admin-nav-item.active { background:linear-gradient(135deg,rgba(139,195,74,.18),rgba(104,159,56,.12)); color:var(--gp); border:1px solid rgba(139,195,74,.2) }
+    .admin-nav-icon { font-size:1rem; width:20px; text-align:center }
+    .admin-sidebar-footer { padding:1rem 1.5rem; margin-top:auto; border-top:1px solid rgba(139,195,74,.1) }
+    .admin-close-btn { width:100%; padding:.7rem; border-radius:10px; background:rgba(255,100,100,.1); border:1px solid rgba(255,100,100,.2); color:#ff8a80; font-size:.82rem; font-weight:700; cursor:pointer; transition:all .3s }
+    .admin-close-btn:hover { background:rgba(255,100,100,.25) }
+
+    /* Main content */
+    .admin-main { flex:1; padding:2rem; overflow-x:hidden }
+    .admin-topbar { display:flex; justify-content:space-between; align-items:center; margin-bottom:2rem }
+    .admin-page-title { font-size:1.4rem; font-weight:800; color:#fff }
+    .admin-page-sub { font-size:.78rem; color:rgba(255,255,255,.4); margin-top:2px }
+    .admin-topbar-right { display:flex; gap:.8rem; align-items:center }
+
+    /* Stat cards */
+    .admin-stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:1rem; margin-bottom:2rem }
+    .ast { border-radius:16px; padding:1.4rem 1.2rem; position:relative; overflow:hidden; transition:all .3s }
+    .ast:hover { transform:translateY(-4px) }
+    .ast-1 { background:linear-gradient(135deg,#1a3d0a,#2d5016); border:1px solid rgba(139,195,74,.25) }
+    .ast-2 { background:linear-gradient(135deg,#0a2a3d,#0e3d5a); border:1px solid rgba(0,170,221,.25) }
+    .ast-3 { background:linear-gradient(135deg,#3d2a0a,#5a3d0e); border:1px solid rgba(255,193,7,.25) }
+    .ast-4 { background:linear-gradient(135deg,#2a0a3d,#3d0e5a); border:1px solid rgba(156,39,176,.25) }
+    .ast-icon { font-size:1.8rem; margin-bottom:.6rem; opacity:.8 }
+    .ast-num { font-size:2rem; font-weight:900; color:#fff; line-height:1 }
+    .ast-lbl { font-size:.68rem; color:rgba(255,255,255,.5); letter-spacing:1.5px; text-transform:uppercase; margin-top:4px }
+    .ast-trend { position:absolute; top:1rem; right:1rem; font-size:.68rem; background:rgba(255,255,255,.1); padding:2px 8px; border-radius:20px; color:rgba(255,255,255,.6) }
+
+    /* Table section */
+    .admin-section { background:rgba(255,255,255,.03); border:1px solid rgba(139,195,74,.1); border-radius:18px; overflow:hidden; margin-bottom:1.5rem }
+    .admin-section-header { padding:1.2rem 1.5rem; border-bottom:1px solid rgba(139,195,74,.08); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:.8rem }
+    .admin-section-title { font-size:.95rem; font-weight:700; color:#fff }
+    .admin-section-sub { font-size:.72rem; color:rgba(255,255,255,.4); margin-top:1px }
+
+    /* Toolbar */
+    .admin-toolbar { padding:1rem 1.5rem; border-bottom:1px solid rgba(139,195,74,.06); display:flex; gap:.8rem; flex-wrap:wrap; align-items:center; background:rgba(0,0,0,.15) }
+    .atb-input { padding:.55rem .9rem; border-radius:8px; border:1px solid rgba(139,195,74,.2); background:rgba(255,255,255,.06); color:#fff; font-family:inherit; font-size:.82rem; outline:none; transition:border-color .3s }
+    .atb-input:focus { border-color:rgba(139,195,74,.5) }
+    .atb-input::placeholder { color:rgba(255,255,255,.3) }
+    .atb-btn { padding:.55rem 1.1rem; border-radius:8px; border:1px solid rgba(139,195,74,.25); background:rgba(139,195,74,.1); color:var(--gp); font-size:.78rem; font-weight:700; cursor:pointer; transition:all .25s; white-space:nowrap; display:flex; align-items:center; gap:.4rem }
+    .atb-btn:hover { background:rgba(139,195,74,.22); transform:translateY(-1px) }
+    .atb-btn.red { border-color:rgba(255,100,100,.25); background:rgba(255,100,100,.08); color:#ff8a80 }
+    .atb-btn.red:hover { background:rgba(255,100,100,.2) }
+    .atb-btn.blue { border-color:rgba(100,180,255,.25); background:rgba(100,180,255,.08); color:#82cfff }
+    .atb-btn.blue:hover { background:rgba(100,180,255,.2) }
+    .atb-btn.green { border-color:rgba(76,175,80,.25); background:rgba(76,175,80,.1); color:#a5d6a7 }
+    .atb-btn.green:hover { background:rgba(76,175,80,.22) }
+
+    /* Table */
+    .admin-table-wrap { overflow-x:auto }
+    .admin-table { width:100%; border-collapse:collapse; font-size:.8rem }
+    .admin-table th { background:rgba(20,42,9,.9); color:rgba(197,225,165,.7); padding:.8rem 1rem; text-align:left; font-size:.68rem; letter-spacing:1.5px; text-transform:uppercase; white-space:nowrap; border-bottom:1px solid rgba(139,195,74,.1) }
+    .admin-table td { padding:.75rem 1rem; border-bottom:1px solid rgba(255,255,255,.04); color:rgba(255,255,255,.82); vertical-align:middle; transition:background .2s }
+    .admin-table tr:hover td { background:rgba(139,195,74,.05) }
+    .admin-table tr:last-child td { border-bottom:none }
+    .td-act { display:flex; gap:.35rem }
+    .td-btn { padding:.3rem .65rem; border-radius:6px; border:none; font-size:.7rem; font-weight:700; cursor:pointer; transition:all .2s; display:flex; align-items:center; gap:3px }
+    .td-btn.del { background:rgba(255,100,100,.12); color:#ff8a80; border:1px solid rgba(255,100,100,.2) }
+    .td-btn.del:hover { background:rgba(255,100,100,.28) }
+    .td-btn.edit { background:rgba(100,180,255,.12); color:#82cfff; border:1px solid rgba(100,180,255,.2) }
+    .td-btn.edit:hover { background:rgba(100,180,255,.28) }
+    .td-btn.pdf { background:rgba(139,195,74,.12); color:var(--gp); border:1px solid rgba(139,195,74,.2) }
+    .td-btn.pdf:hover { background:rgba(139,195,74,.25) }
+
+    /* Badges */
+    .badge-ieee { background:rgba(0,170,221,.15); color:#7dd8ff; padding:2px 8px; border-radius:20px; font-size:.67rem; font-weight:700; border:1px solid rgba(0,170,221,.2) }
+    .badge-yes { background:rgba(76,175,80,.15); color:#a5d6a7; padding:2px 8px; border-radius:20px; font-size:.67rem; font-weight:700; border:1px solid rgba(76,175,80,.2) }
+    .badge-no { background:rgba(255,255,255,.06); color:rgba(255,255,255,.45); padding:2px 8px; border-radius:20px; font-size:.67rem; font-weight:700 }
+    .badge-txn { background:rgba(255,193,7,.12); color:#ffd54f; padding:2px 8px; border-radius:20px; font-size:.67rem; font-weight:600; border:1px solid rgba(255,193,7,.2); font-family:monospace; letter-spacing:.5px }
+
+    .no-data { text-align:center; padding:3rem; color:rgba(255,255,255,.3); font-size:.9rem }
+    .row-num { color:rgba(255,255,255,.25); font-size:.72rem; font-weight:600 }
+    .reg-id-cell { font-family:monospace; font-size:.72rem; color:var(--gp); background:rgba(139,195,74,.08); padding:2px 6px; border-radius:4px }
+    .name-cell { font-weight:700; color:#fff }
+    .email-cell { font-size:.75rem; color:rgba(255,255,255,.55) }
+
+    /* Admin Login */
+    .admin-login { display:flex; align-items:center; justify-content:center; min-height:100vh; padding:2rem; background:#0b1a0d }
+    .al-box { background:rgba(255,255,255,.05); border:1px solid rgba(139,195,74,.2); border-radius:24px; padding:3rem; max-width:380px; width:100%; text-align:center; backdrop-filter:blur(10px) }
+    .al-title { font-size:1.5rem; font-weight:800; color:#fff; margin-bottom:.5rem }
+    .al-sub { color:rgba(255,255,255,.5); font-size:.88rem; margin-bottom:2rem }
+    .al-inp { width:100%; padding:12px 16px; border-radius:12px; border:1.5px solid rgba(139,195,74,.25); background:rgba(255,255,255,.06); color:#fff; font-family:inherit; font-size:.97rem; outline:none; margin-bottom:1rem; transition:border-color .3s }
+    .al-inp:focus { border-color:var(--gl) }
+    .al-inp::placeholder { color:rgba(255,255,255,.3) }
+    .al-btn { width:100%; padding:13px; border-radius:50px; background:linear-gradient(135deg,var(--gl),#689f38); color:#fff; border:none; font-size:1rem; font-weight:700; cursor:pointer; transition:all .3s }
+    .al-btn:hover { transform:translateY(-2px); box-shadow:0 8px 20px rgba(76,175,80,.4) }
+    .al-err { color:#ff8a80; font-size:.83rem; margin-top:.5rem; display:none }
+    .al-err.show { display:block }
+
+    /* Edit modal */
+    .edit-ov { display:none; position:fixed; inset:0; z-index:1000; background:rgba(0,0,0,.75); backdrop-filter:blur(8px); align-items:center; justify-content:center; padding:20px }
+    .edit-ov.show { display:flex }
+    .edit-box { background:#142a09; border:1px solid rgba(139,195,74,.25); border-radius:20px; padding:2rem; max-width:580px; width:100%; max-height:90vh; overflow-y:auto }
+    .edit-title { font-size:1.1rem; font-weight:700; color:#fff; margin-bottom:1.5rem; display:flex; align-items:center; gap:.5rem }
+    .edit-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px }
+    .edit-grp { display:flex; flex-direction:column; gap:5px }
+    .edit-grp.full { grid-column:1/-1 }
+    .edit-lbl { font-size:.68rem; font-weight:700; color:var(--gp); letter-spacing:1px; text-transform:uppercase }
+    .edit-inp { background:rgba(255,255,255,.07); border:1.5px solid rgba(139,195,74,.2); color:#fff; padding:9px 12px; border-radius:8px; font-family:inherit; font-size:.88rem; outline:none; transition:border-color .3s; width:100% }
+    .edit-inp:focus { border-color:var(--gl) }
+    .edit-actions { display:flex; gap:.8rem; justify-content:flex-end; margin-top:1.5rem }
+    .edit-save { padding:10px 22px; border-radius:25px; background:linear-gradient(135deg,var(--gl),#689f38); color:#fff; border:none; font-weight:700; cursor:pointer; font-size:.88rem; transition:all .3s }
+    .edit-save:hover { transform:translateY(-2px); box-shadow:0 6px 16px rgba(76,175,80,.4) }
+    .edit-cancel { padding:10px 18px; border-radius:25px; background:rgba(255,255,255,.07); color:rgba(255,255,255,.6); border:1px solid rgba(255,255,255,.15); cursor:pointer; font-size:.88rem; transition:all .3s }
+
+    /* REVEAL */
+    .reveal { opacity:0; transform:translateY(28px); transition:all .7s ease }
+    .reveal.visible { opacity:1; transform:none }
+
+    /* RESPONSIVE */
+    @media(max-width:768px) {
+      nav ul { display:none!important; flex-direction:column!important; position:absolute!important; top:100%!important; left:0!important; right:0!important; background:linear-gradient(135deg,var(--gd),var(--gdr))!important; padding:1rem!important; gap:.4rem!important; box-shadow:0 4px 12px rgba(0,0,0,.25)!important; z-index:999!important }
+      nav ul.active { display:flex!important }
+      .mob-btn { display:block!important }
+      .hero h1 { font-size:2rem }
+      section { padding:3.5rem 1.2rem }
+      .fg { grid-template-columns:1fr }
+      .fgrp.full,.fsub,.cfg-banner { grid-column:1 }
+      .inst-card { flex-direction:column }
+      .inst-img { width:130px; height:130px }
+      .edit-grid { grid-template-columns:1fr }
+      .edit-grp.full { grid-column:1 }
+      .cert-input-wrap { border-radius:14px; flex-direction:column }
+      .cert-input,.cert-btn { border-radius:10px!important }
+      .about-wrap { padding:2rem }
+      .about-grid { grid-template-columns:1fr; gap:2rem }
+      .about-left::after { display:none }
+      .about-title { font-size:1.4rem }
+      .about-stats-grid { grid-template-columns:repeat(2,1fr); gap:1rem }
+      .stat-block { padding:1.5rem 1rem }
+      .stat-number { font-size:2rem }
+      .admin-layout { flex-direction:column }
+      .admin-sidebar { width:100%; height:auto; position:static; padding:1rem }
+      .admin-nav { display:flex; flex-wrap:wrap; gap:.4rem }
+      .admin-nav-item { width:auto }
+    }
+    @media(min-width:769px) {
+      nav ul { display:flex!important }
+      .mob-btn { display:none!important }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="c">
+    <div class="nav-logo">
+      <img src="https://lh3.googleusercontent.com/d/1gjTgytjFynd4udSKZxtSrM7FKkPcE9P1" alt="IEEE" onerror="this.style.display='none'">
+      <span>IEEE DIU SB SIGHT</span>
+      <span class="ieee-badge">IEEE</span>
+    </div>
+    <button class="mob-btn" onclick="toggleMenu()">☰</button>
+    <ul id="navMenu">
+      <li><a href="#hero">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#topics">Topics</a></li>
+      <li><a href="#schedule">Schedule</a></li>
+      <li><a href="#quiz">Quiz &amp; Prizes</a></li>
+      <li><a href="#instructor">Instructor</a></li>
+      <li><a href="#fee">Fee</a></li>
+      <li><a href="#cert">Certificate</a></li>
+      <li><a href="#registration" class="nav-btn">Register</a></li>
+      <li><a onclick="openAdmin()" class="nav-admin-btn">Admin</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero" class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-ov"></div>
+  <div class="hero-content">
+    <h1>Embedded Systems<br><span>&amp; IoT Workshop</span></h1>
+    <p class="hero-sub">Practical Learning with Real Hardware</p>
+    <p class="hero-desc">Learn microcontroller programming, sensor integration, and IoT cloud connectivity through hands-on labs and live demonstrations.</p>
+    <div class="hero-meta">
+       
+    </div>
+    <div class="hero-btns">
+      <a href="#registration" class="btn btn-p">Register Now</a>
+      <a href="#topics" class="btn btn-s">Curriculum</a>
+      <a href="#cert" class="btn btn-ieee">Get Certificate</a>
+    </div>
+  </div>
+  <div class="scroll-ind"><div class="scroll-line"></div><span>SCROLL</span></div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="c">
+    <h2>About the Workshop</h2>
+    <p class="ssub">Empowering students through practical Embedded Systems &amp; IoT skills</p>
+    <div class="about-wrap reveal">
+      <div class="about-grid">
+        <div class="about-left">
+          <div class="about-title">Why Join This <span>Workshop?</span></div>
+          <div class="about-item">
+            <div class="about-icon">🔧</div>
+            <div class="about-content">
+              <h3>Hands-On Learning</h3>
+              <p>4 hours of intensive, practical labs with real Arduino, ESP32, and sensors. Every concept is taught through live coding and working hardware.</p>
+            </div>
+          </div>
+          <div class="about-item">
+            <div class="about-icon">🎓</div>
+            <div class="about-content">
+              <h3>IEEE Credentials</h3>
+              <p>Earn an official hardcopy IEEE DIU SB certificate signed by leadership. Plus, top 3 performers win prestigious recognition crests.</p>
+            </div>
+          </div>
+          <div class="about-item">
+            <div class="about-icon">🌐</div>
+            <div class="about-content">
+              <h3>Network &amp; Grow</h3>
+              <p>Connect with IEEE members, professionals, and fellow students passionate about embedded systems and IoT innovation.</p>
+            </div>
+          </div>
+          <div class="about-highlight">
+            <p><strong>Perfect for beginners to intermediate learners</strong> — Whether you're just starting out or have some experience, you'll walk away with real IoT skills for your portfolio.</p>
+          </div>
+        </div>
+        <div class="about-right">
+          <div class="about-stats-grid">
+            <div class="stat-block"><div class="stat-number">2</div><div class="stat-label">Days</div></div>
+            <div class="stat-block"><div class="stat-number">4</div><div class="stat-label">Hours Total</div></div>
+            <div class="stat-block"><div class="stat-number">100%</div><div class="stat-label">Hands-On</div></div>
+            <div class="stat-block"><div class="stat-number">∞</div><div class="stat-label">Inspiration</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOPICS -->
+<section id="topics" class="sa">
+  <div class="c">
+    <h2>What You'll Learn</h2>
+    <p class="ssub">Core embedded systems and IoT concepts</p>
+    <div class="tgrid reveal">
+      <div class="tcard">
+        <div class="tico"><span style="display:inline-block;width:60px;height:60px;background:linear-gradient(135deg,#8bc34a,#689f38);border-radius:15px; align-items:center;justify-content:center;color:#fff;font-size:28px">⚙️</span></div>
+        <h4>Arduino &amp; ESP32</h4>
+        <p style="text-align:justify;">GPIO control, digital I/O, PWM, and basic microcontroller programming fundamentals.</p>
+      </div>
+      <div class="tcard">
+        <div class="tico"><span style="display:inline-block;width:60px;height:60px;background:linear-gradient(135deg,#ff6b6b,#ee5a6f);border-radius:15px;align-items:center;justify-content:center;color:#fff;font-size:28px"><center>🌡️</center></span></div>
+        <h4>Sensors &amp; Interfacing</h4>
+        <p style="text-align:justify;">Temperature, humidity, motion sensors — practical real-world hardware integration.</p>
+      </div>
+      <div class="tcard">
+        <div class="tico"><span style="display:inline-block;width:60px;height:60px;background:linear-gradient(135deg,#4ecdc4,#44b3aa);border-radius:15px;align-items:center;justify-content:center;color:#fff;font-size:28px">📱</span></div>
+        <h4>WiFi   </h4>
+       <p style="text-align:justify;">Connect devices to the cloud, wireless communication, and IoT messaging protocols.</p>
+      </div>
+      <div class="tcard">
+        <div class="tico"><span style="display:inline-block;width:60px;height:60px;background:linear-gradient(135deg,#a29bfe,#6c5ce7);border-radius:15px;align-items:center;justify-content:center;color:#fff;font-size:28px">💻</span></div>
+        <h4>Live Demo &amp; Build</h4>
+        <p style="text-align:justify;">Hands-on project showcase, debugging techniques, and real system deployment.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCHEDULE -->
+<section id="schedule" style="background:linear-gradient(180deg,#fff,var(--gbg))">
+  <div class="c">
+    <h2>Workshop Schedule</h2>
+    <p class="ssub">Structured 2-day program with 2 hours daily</p>
+    <div class="reveal">
+      <div class="dtabs">
+        <button class="dtab active" onclick="switchDay(1,this)">Day 1</button>
+        <button class="dtab" onclick="switchDay(2,this)">Day 2</button>
+      </div>
+      <div class="sc active" id="day1">
+        <div class="tl">
+          <div class="tli"><div class="tlb"><div class="tlt">09:00 — 09:15</div><div class="tln">Welcome &amp; Setup</div><div class="tld">Check-in and development environment setup</div></div></div>
+          <div class="tli"><div class="tlb"><div class="tlt">09:15 — 10:00</div><div class="tln">Microcontroller Basics</div><div class="tld">Arduino &amp; ESP32 fundamentals, GPIO control, hands-on blinking LEDs</div></div></div>
+          <div class="tli"><div class="tlb"><div class="tlt">10:00 — 10:45</div><div class="tln">Sensor Integration Lab</div><div class="tld">Connect real sensors, read analog data, live demonstrations</div></div></div>
+          <div class="tli"><div class="tlb"><div class="tlt">10:45 — 11:00</div><div class="tln">Day 1 Recap &amp; Q&amp;A</div><div class="tld">Review and open discussion</div></div></div>
+        </div>
+      </div>
+      <div class="sc" id="day2">
+        <div class="tl">
+          <div class="tli"><div class="tlb"><div class="tlt">09:00 — 09:15</div><div class="tln">Day 1 Recap</div><div class="tld">Quick review of previous day concepts</div></div></div>
+          <div class="tli"><div class="tlb"><div class="tlt">09:15 — 10:00</div><div class="tln">WiFi &amp; Cloud Connection</div><div class="tld">Connect ESP32 to WiFi, MQTT messaging, real-time dashboards</div></div></div>
+          <div class="tli"><div class="tlb"><div class="tlt">10:00 — 10:45</div><div class="tln">Final Project &amp; Demo</div><div class="tld">Live IoT system build and showcase by participants</div></div></div>
+          <div class="tli"><div class="tlb" style="border-left-color:#ffc107"><div class="tlt" style="color:#ffc107">10:45 — 11:00</div><div class="tln" style="color:#e65100">🧠 Quiz &amp; Awards</div><div class="tld">Knowledge quiz with crest awards for top 3 performers</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section id="quiz" class="quiz-section">
+  <div class="c">
+    <h2>Quiz Competition &amp; Awards</h2>
+    <p class="ssub">Test your knowledge and win recognition!</p>
+    <div class="quiz-cards reveal">
+      <div class="qcard"><div class="qcard-icon">🏅</div><h3>1st Place</h3><p>Champion Crest — Permanent recognition of excellence in the workshop quiz.</p><span class="badge">🥇 Champion</span></div>
+      <div class="qcard"><div class="qcard-icon">🥈</div><h3>2nd Place</h3><p>1st Runner-Up Crest — Outstanding performance in technical knowledge.</p><span class="badge">🥈 Runner-Up</span></div>
+      <div class="qcard"><div class="qcard-icon">🥉</div><h3>3rd Place</h3><p>2nd Runner-Up Crest — Exceptional grasp of Embedded Systems concepts.</p><span class="badge">🥉 Runner-Up</span></div>
+      <div class="qcard"><div class="qcard-icon">📜</div><h3>All Participants</h3><p>Official IEEE hardcopy participation certificate signed by IEEE DIU SB leadership.</p><span class="badge">📜 Certificate</span></div>
+    </div>
+    <div class="quiz-note reveal"><strong>Quiz Details:</strong> The offline quiz covers all workshop topics — microcontroller programming, sensor interfacing, wireless communication, and IoT concepts. All participants receive a hardcopy certificate. Top 3 scorers win crests at the closing ceremony.</div>
+  </div>
+</section>
+
+<!-- BENEFITS -->
+<section id="benefits" class="sa">
+  <div class="c">
+    <h2>Why Attend</h2>
+    <p class="ssub">Benefits of joining this IEEE workshop</p>
+    <div class="benefits-grid reveal">
+      <div class="bcard"><div class="bico">📜</div><h3>IEEE Certificate</h3><p>Official hardcopy participation certificate from IEEE DIU SB.</p></div>
+      <div class="bcard"><div class="bico">🏆</div><h3>Quiz Crests</h3><p>Top 3 performers win prestigious recognition crests.</p></div>
+      <div class="bcard"><div class="bico">🔧</div><h3>Real Hardware</h3><p>Hands-on time with Arduino, ESP32, sensors and components.</p></div>
+      <div class="bcard"><div class="bico">🌐</div><h3>IEEE Network</h3><p>Connect with IEEE members and technology professionals.</p></div>
+      <div class="bcard"><div class="bico">👨‍💻</div><h3>Expert Training</h3><p>Learn from experienced embedded systems engineer.</p></div>
+      <div class="bcard"><div class="bico">🚀</div><h3>Career Ready</h3><p>Practical IoT skills that strengthen your CV.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- INSTRUCTOR -->
+<section id="instructor" class="inst-wrap">
+  <div class="c">
+    <h2>Your Instructor</h2>
+    <p class="ssub">Learn from an experienced Embedded Systems engineer</p>
+    <div class="inst-card reveal">
+      <div class="inst-img-w">
+        <img src="https://i.ibb.co.com/mr0NdMVY/IMG-20260216-WA0021.jpg" alt="Md. Mehedi Hasan" class="inst-img" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22160%22 height=%22160%22><rect fill=%22%232d5016%22 width=%22160%22 height=%22160%22/><text fill=%22%238bc34a%22 font-size=%2252%22 x=%2250%25%22 y=%2252%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22>MH</text></svg>'">
+      </div>
+      <div style="flex:1">
+        <div class="inst-name">Md. Mehedi Hasan</div>
+        <div class="inst-role">Embedded Systems Engineer • IoT Specialist</div>
+        <p class="inst-bio">Md. Mehedi Hasan is an experienced engineer specializing in Embedded Systems and Internet of Things. He has built and deployed real microcontroller-based systems, sensor networks, and IoT solutions with cloud integration. As an active IEEE DIU member, Mehedi is passionate about making complex embedded technology accessible through hands-on, project-focused instruction.</p>
+        <div class="inst-extra"><p><strong>Teaching Philosophy:</strong> Learning embedded systems is best done by building real things. Every concept is taught through live demonstration and working hardware.</p></div>
+        <div class="inst-tags" style="margin-top:1rem">
+          <span class="tag">Arduino</span><span class="tag">ESP32</span><span class="tag">IoT Cloud</span><span class="tag">Embedded C</span><span class="tag">Sensors</span>
+        </div>
+        <a href="https://sites.google.com/view/mehedihasan497/home" target="_blank" class="inst-link">View Portfolio →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ENROLLMENT FEE -->
+<section id="fee" style="background:linear-gradient(135deg,var(--gbg),var(--gbg2)">
+  <div class="c">
+    <h2 style="background:linear-gradient(135deg,#e65100,#ff8f00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Enrollment Fee</h2>
+    <p class="ssub" style="color:#bf360c">Payment required to confirm your seat</p>
+    <div style="max-width:520px;margin:0 auto;background:#fff;border-radius:24px;padding:2.5rem;box-shadow:0 12px 40px rgba(0,0,0,.12);border-left:6px solid #ffc107;text-align:center" class="reveal">
+      <div style="font-size:3.5rem;margin-bottom:.5rem">💳</div>
+      <div style="font-size:2.8rem;font-weight:900;background:linear-gradient(135deg,#e65100,#ff8f00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.3rem">৳200</div>
+      <div style="font-size:.85rem;color:#888;margin-bottom:1.5rem;letter-spacing:1px;text-transform:uppercase">Registration Fee (One-time)</div>
+      <div style="background:linear-gradient(135deg,#fce4ec,#f8bbd0);border-radius:16px;padding:1.5rem;margin-bottom:1rem;border:2px dashed #e91e63">
+        <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:.8rem">
+          <span style="font-size:1.5rem">📱</span>
+          <span style="font-size:1rem;font-weight:800;color:#ad1457">bKash Payment</span>
+        </div>
+        <div style="font-size:1.5rem;font-weight:900;color:#333;letter-spacing:2px;margin-bottom:.4rem">+8801964301859</div>
+        <div style="display:inline-block;background:#ad1457;color:#fff;padding:5px 16px;border-radius:20px;font-size:.8rem;font-weight:700">📤 Send Money</div>
+      </div>
+      <div style="background:#fff3e0;border-radius:12px;padding:1rem 1.2rem;border-left:4px solid #ff9800;text-align:left;font-size:.85rem;color:#e65100;line-height:1.9">
+        <strong>⚠️ Steps:</strong><br>
+        1. Send <strong>৳200</strong> to <strong>01964301859</strong> via bKash (Send Money)<br>
+        2. Copy your <strong>Transaction ID</strong><br>
+        3. Fill the registration form below &amp; paste Transaction ID
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATE -->
+<section id="cert" class="cert-section">
+  <div class="c">
+    <h2>Certificate Portal</h2>
+    <p class="ssub">Enter your Registration ID to download your certificate</p>
+    <div class="cert-lookup reveal">
+      <div class="cert-input-wrap">
+        <input class="cert-input" id="cert-id-input" type="text" placeholder="Enter your Registration ID (e.g. REG-ABC123-XY12)" />
+        <button class="cert-btn" onclick="lookupCert()">Search</button>
+      </div>
+      <div class="cert-result" id="cert-result">
+        <h3 id="cert-name">— Name —</h3>
+        <p id="cert-info">Certificate details will appear here.</p>
+        <a id="cert-dl-link" href="#" target="_blank" class="cert-dl-btn" onclick="downloadCert(event)">Download Certificate (PDF)</a>
+        <p class="cert-note">Hardcopy certificates will be distributed at the closing ceremony.</p>
+      </div>
+      <div class="cert-not-found" id="cert-not-found">
+        <p>No certificate found for this Registration ID. Please check your ID or contact ieeediusbsight@gmail.com</p>
+      </div>
+      <p class="cert-note" style="margin-top:1.5rem;color:rgba(255,255,255,.55);font-size:.82rem">Certificates available after workshop concludes.</p>
+    </div>
+  </div>
+</section>
+
+<!-- REGISTRATION -->
+<section id="registration" class="reg-wrap">
+  <div class="c">
+    <h2>Registration Portal</h2>
+    <p class="ssub">Secure your seat — limited spots available!</p>
+    <div class="reg-card reveal">
+      <form id="reg-form">
+        <div class="fg">
+          <div class="cfg-banner" id="cfg-banner">⚙️ <strong>Setup Required:</strong> Configure Supabase credentials in script. Demo mode active until configured.</div>
+          <div class="fgrp"><label class="flbl">Full Name *</label><input class="finp" type="text" id="f-name" placeholder="Your full name" required></div>
+          <div class="fgrp"><label class="flbl">Student ID *</label><input class="finp" type="text" id="f-sid" placeholder="e.g. 221-15-xxxx" required></div>
+          <div class="fgrp"><label class="flbl">Email Address *</label><input class="finp" type="email" id="f-email" placeholder="your@email.com" required></div>
+          <div class="fgrp"><label class="flbl">Phone Number *</label><input class="finp" type="tel" id="f-phone" placeholder="01XXXXXXXXX" required></div>
+          <div class="fgrp">
+            <label class="flbl">Department *</label>
+            <select class="fsel" id="f-dept" required>
+              <option value="" disabled selected>Select Department</option>
+              <option>Computer Science &amp; Engineering</option>
+              <option>Electrical &amp; Electronic Engineering</option>
+              <option>Software Engineering</option>
+              <option>Computer Science &amp; Information Technology</option>
+              <option>Electronics &amp; Telecommunication Engineering</option>
+              <option>Robotics &amp; Mechatronics Engineering</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="fgrp">
+            <label class="flbl">Semester</label>
+            <select class="fsel" id="f-sem">
+              <option value="" disabled selected>Select Semester</option>
+              <option>1st Semester</option><option>2nd Semester</option><option>3rd Semester</option>
+              <option>4th Semester</option><option>5th Semester</option><option>6th Semester</option>
+              <option>7th Semester</option><option>8th Semester</option><option>Alumni / Other</option>
+            </select>
+          </div>
+          <div class="fgrp">
+            <label class="flbl">Experience Level *</label>
+            <select class="fsel" id="f-level" required>
+              <option value="" disabled selected>Select level</option>
+              <option>Complete Beginner</option><option>Some Theory Knowledge</option>
+              <option>Hands-on Basic Projects</option><option>Intermediate Level</option>
+            </select>
+          </div>
+          <div class="fgrp">
+            <label class="flbl">IEEE Member?</label>
+            <select class="fsel" id="f-ieee">
+              <option value="No">No</option>
+              <option value="Yes">Yes — IEEE DIU SB Member</option>
+              <option value="Other">Yes — Other Chapter</option>
+            </select>
+          </div>
+          <div class="fgrp full">
+            <label class="flbl">bKash Transaction ID *</label>
+            <input class="finp" type="text" id="f-txn" placeholder="e.g. 8AB12CD345" required style="letter-spacing:2px;font-weight:700;text-transform:uppercase">
+            <span style="font-size:.72rem;color:#999;margin-top:3px">Send ৳200 to 01964301859 via bKash (Send Money) first, then enter your Transaction ID here</span>
+          </div>
+          <div class="fgrp full"><label class="flbl">Why do you want to join? (Optional)</label><input class="finp" type="text" id="f-why" placeholder="Brief motivation..."></div>
+          <button type="submit" class="fsub" id="submit-btn">✅ Submit Registration</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="c">
+    <div class="flogos">
+      <div class="flogo"><a href="https://www.facebook.com/profile.php?id=61582082533297" target="_blank"><img src="https://lh3.googleusercontent.com/d/1gjTgytjFynd4udSKZxtSrM7FKkPcE9P1" alt="IEEE DIU SB SIGHT"></a><p>IEEE DIU SB SIGHT</p></div>
+      <div class="flogo"><a href="https://daffodilvarsity.edu.bd/" target="_blank"><img src="https://lh3.googleusercontent.com/d/1FEYg9X-GgktSL0xKevOIWQvhPTlwNSMM" alt="DIU"></a><p>Daffodil University</p></div>
+      <div class="flogo"><a href="https://www.facebook.com/diuieee/" target="_blank"><img src="https://lh3.googleusercontent.com/d/1yrmxN9yAOIYVEhnncMnZGkrZSYSKlavg" alt="IEEE DIU SB"></a><p>IEEE DIU Branch</p></div>
+    </div> 
+    <div class="fdiv"></div>
+    <p style="font-size:1.05rem;font-weight:700;margin-bottom:6px">© 2026 IEEE DIU SB SIGHT Group. All rights reserved.</p>
+    <p style="opacity:.7;margin-bottom:14px;font-size:.9rem">Building engineers who build a better tomorrow 🚀</p>
+    <div style="display:flex;justify-content:center;align-items:center;gap:.8rem;flex-wrap:wrap">
+      <span style="opacity:.8;font-size:.88rem">Developed by <strong style="color:var(--gp)">Md. Mehedi Hasan</strong></span>
+      <a href="https://www.facebook.com/MehediHasanbd2020" target="_blank" style="color:#fff;text-decoration:none;background:rgba(139,195,74,.2);padding:.28rem .8rem;border-radius:20px;font-size:.8rem">Facebook</a>
+      <a href="https://sites.google.com/view/mehedihasan497/home" target="_blank" style="color:#fff;text-decoration:none;background:rgba(139,195,74,.2);padding:.28rem .8rem;border-radius:20px;font-size:.8rem">Portfolio</a>
+    </div>
+  </div>
+</footer>
+
+<!-- SUCCESS MODAL -->
+<div class="mov" id="success-modal">
+  <div class="mbox">
+    <div class="mico">🎉</div>
+    <div class="mtit">Registration Successful!</div>
+    <p class="msub">You are registered for the <strong>Embedded System &amp; IoT Workshop</strong>. See you soon!</p>
+    <div class="mid" id="reg-id-display">REG-XXXXXXXXX</div>
+    <p style="font-size:.82rem;color:var(--tg);margin-bottom:18px">Save this ID for certificate download.</p>
+    <button class="mcl" onclick="closeModal()">Close</button>
+  </div>
+</div>
+
+<!-- ADMIN PANEL -->
+<div class="admin-ov" id="admin-ov">
+  <!-- Login -->
+  <div id="admin-login-screen" class="admin-login">
+    <div class="al-box">
+      <div style="font-size:2.5rem;margin-bottom:12px">🔒</div>
+      <div class="al-title">Admin Panel</div>
+      <div class="al-sub">IEEE DIU Workshop · Secure Access</div>
+      <input class="al-inp" type="password" id="admin-pass" placeholder="Enter admin password" onkeydown="if(event.key==='Enter')adminLogin()">
+      <div class="al-err" id="admin-err">❌ Incorrect password. Try again.</div>
+      <br>
+      <button class="al-btn" onclick="adminLogin()">Login</button>
+      <br><br>
+      <button onclick="closeAdmin()" style="background:none;border:none;color:rgba(255,255,255,.4);cursor:pointer;font-size:.85rem">← Cancel</button>
+    </div>
+  </div>
+
+  <!-- Dashboard -->
+  <div id="admin-dashboard" style="display:none">
+    <div class="admin-layout">
+      <!-- Sidebar -->
+      <div class="admin-sidebar">
+        <div class="admin-logo">
+          <div style="font-size:1.5rem;margin-bottom:6px">📊</div>
+          <div class="admin-logo-title">Admin Panel</div>
+          <div class="admin-logo-sub">IEEE DIU SB SIGHT</div>
+        </div>
+        <nav class="admin-nav">
+          <button class="admin-nav-item active" onclick="showAdminTab('registrations',this)">
+            <span class="admin-nav-icon">👥</span> Registrations
+          </button>
+          <button class="admin-nav-item" onclick="showAdminTab('stats',this)">
+            <span class="admin-nav-icon">📈</span> Statistics
+          </button>
+          <button class="admin-nav-item" onclick="exportCSV()">
+            <span class="admin-nav-icon">📥</span> Export CSV
+          </button>
+          <button class="admin-nav-item" onclick="generateAllPDF()">
+            <span class="admin-nav-icon">📄</span> Export PDF
+          </button>
+          <button class="admin-nav-item" onclick="loadAdminData()">
+            <span class="admin-nav-icon">🔄</span> Refresh
+          </button>
+        </nav>
+        <div style="margin-top:auto;padding:1rem .8rem">
+          <button class="admin-close-btn" onclick="closeAdmin()">✕ Close Panel</button>
+        </div>
+      </div>
+
+      <!-- Main -->
+      <div class="admin-main">
+        <div class="admin-topbar">
+          <div>
+            <div class="admin-page-title">Workshop Registrations</div>
+            <div class="admin-page-sub">Embedded System &amp; IoT Workshop · 2026</div>
+          </div>
+          <div class="admin-topbar-right">
+            <button class="atb-btn red" onclick="if(confirm('Delete ALL registrations?'))clearAll()">🗑️ Clear All</button>
+          </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="admin-stats">
+          <div class="ast ast-1">
+            <div class="ast-icon">👥</div>
+            <div class="ast-num" id="stat-total">0</div>
+            <div class="ast-lbl">Total Registered</div>
+          </div>
+          <div class="ast ast-2">
+            <div class="ast-icon">🔵</div>
+            <div class="ast-num" id="stat-ieee">0</div>
+            <div class="ast-lbl">IEEE Members</div>
+          </div>
+          <div class="ast ast-3">
+            <div class="ast-icon">🏛️</div>
+            <div class="ast-num" id="stat-depts">0</div>
+            <div class="ast-lbl">Departments</div>
+          </div>
+          <div class="ast ast-4">
+            <div class="ast-icon">📅</div>
+            <div class="ast-num" id="stat-today">0</div>
+            <div class="ast-lbl">Today's Regs</div>
+          </div>
+        </div>
+
+        <!-- Table section -->
+        <div class="admin-section">
+          <div class="admin-section-header">
+            <div>
+              <div class="admin-section-title">All Registrations</div>
+              <div class="admin-section-sub" id="table-count">Loading...</div>
+            </div>
+            <div style="display:flex;gap:.6rem;flex-wrap:wrap">
+              <button class="atb-btn blue" onclick="exportCSV()">📥 CSV</button>
+              <button class="atb-btn green" onclick="generateAllPDF()">📄 PDF</button>
+            </div>
+          </div>
+          <div class="admin-toolbar">
+            <input class="atb-input" type="text" id="search-input" placeholder="🔍 Search name, ID, email, txn..." oninput="filterTable()" style="min-width:240px">
+            <select class="atb-input" id="filter-dept" onchange="filterTable()" style="min-width:160px">
+              <option value="">All Departments</option>
+              <option>Computer Science &amp; Engineering</option>
+              <option>Electrical &amp; Electronic Engineering</option>
+              <option>Software Engineering</option>
+              <option>Computer Science &amp; Information Technology</option>
+              <option>Electronics &amp; Telecommunication Engineering</option>
+              <option>Robotics &amp; Mechatronics Engineering</option>
+              <option>Other</option>
+            </select>
+            <select class="atb-input" id="filter-ieee" onchange="filterTable()" style="min-width:130px">
+              <option value="">All Members</option>
+              <option value="Yes">IEEE Members</option>
+              <option value="No">Non-Members</option>
+            </select>
+          </div>
+          <div class="admin-table-wrap">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Reg ID</th>
+                  <th>Name</th>
+                  <th>Student ID</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th>Department</th>
+                  <th>Semester</th>
+                  <th>Level</th>
+                  <th>IEEE</th>
+                  <th>Txn ID</th>
+                  <th>Date</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="admin-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EDIT MODAL -->
+<div class="edit-ov" id="edit-ov">
+  <div class="edit-box">
+    <div class="edit-title">✏️ Edit Registration</div>
+    <div class="edit-grid">
+      <div class="edit-grp"><label class="edit-lbl">Full Name</label><input class="edit-inp" id="e-name"></div>
+      <div class="edit-grp"><label class="edit-lbl">Student ID</label><input class="edit-inp" id="e-sid"></div>
+      <div class="edit-grp"><label class="edit-lbl">Email</label><input class="edit-inp" id="e-email"></div>
+      <div class="edit-grp"><label class="edit-lbl">Phone</label><input class="edit-inp" id="e-phone"></div>
+      <div class="edit-grp full"><label class="edit-lbl">Department</label><input class="edit-inp" id="e-dept"></div>
+      <div class="edit-grp"><label class="edit-lbl">Semester</label><input class="edit-inp" id="e-sem"></div>
+      <div class="edit-grp"><label class="edit-lbl">Experience Level</label><input class="edit-inp" id="e-level"></div>
+      <div class="edit-grp"><label class="edit-lbl">IEEE Member</label><input class="edit-inp" id="e-ieee"></div>
+      <div class="edit-grp full"><label class="edit-lbl">Transaction ID</label><input class="edit-inp" id="e-txn" style="letter-spacing:2px"></div>
+    </div>
+    <div class="edit-actions">
+      <button class="edit-cancel" onclick="closeEdit()">Cancel</button>
+      <button class="edit-save" onclick="saveEdit()">Save Changes</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+'use strict';
+
+// ── CONFIG ──
+const SUPABASE_URL = 'https://yyphxuyktgcxojjpoxwu.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl5cGh4dXlrdGdjeG9qanBveHd1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI4OTI3NjUsImV4cCI6MjA4ODQ2ODc2NX0._Uz0ikSAUqMmi8R_wnNcZrOjAm9GIwoI2-eTWT5NBfY';
+const ADMIN_PASSWORD = 'ieee@diu2026';
+const CERT_BASE_URL = 'https://raw.githubusercontent.com/YOUR_GITHUB_USERNAME/certificates/main/';
+
+let demoData = JSON.parse(localStorage.getItem('demoRegistrations') || '[]');
+let allData = [];
+let editingId = null;
+
+// ── MOBILE MENU ──
+let menuOpen = false;
+function toggleMenu() {
+  const m = document.getElementById('navMenu');
+  menuOpen = !menuOpen;
+  m.classList.toggle('active', menuOpen);
+}
+document.addEventListener('click', e => {
+  if (!menuOpen) return;
+  const m = document.getElementById('navMenu');
+  const b = document.querySelector('.mob-btn');
+  if (m && b && !m.contains(e.target) && !b.contains(e.target)) { menuOpen = false; m.classList.remove('active'); }
+});
+
+// ── SMOOTH SCROLL ──
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', function(e) {
+    const id = this.getAttribute('href').slice(1);
+    const t = document.getElementById(id);
+    if (t) {
+      e.preventDefault();
+      window.scrollTo({ top: t.offsetTop - document.querySelector('nav').offsetHeight - 8, behavior: 'smooth' });
+      menuOpen = false;
+      document.getElementById('navMenu').classList.remove('active');
+    }
+  });
+});
+
+// ── DAY TABS ──
+function switchDay(day, btn) {
+  document.querySelectorAll('.dtab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.sc').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('day' + day).classList.add('active');
+}
+
+// ── SCROLL REVEAL ──
+const ro = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
+// ── TOAST ──
+function showToast(msg, type = 'success') {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.className = 'show ' + type;
+  setTimeout(() => t.className = '', 4200);
+}
+
+// ── MODAL ──
+function closeModal() { document.getElementById('success-modal').classList.remove('show'); }
+
+// ── REG ID ──
+function genRegId() {
+  return 'REG-' + Date.now().toString(36).toUpperCase().slice(-5) + '-' + Math.random().toString(36).substr(2, 4).toUpperCase();
+}
+
+// ── SUPABASE ──
+const isSupabaseConfigured = () => SUPABASE_URL !== 'YOUR_SUPABASE_URL';
+
+async function sbFetch(endpoint, options = {}) {
+  return fetch(`${SUPABASE_URL}/rest/v1/${endpoint}`, {
+    ...options,
+    headers: {
+      'Content-Type': 'application/json',
+      'apikey': SUPABASE_ANON_KEY,
+      'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+      ...(options.headers || {})
+    }
+  });
+}
+
+// ── FORM SUBMIT ──
+document.getElementById('reg-form').addEventListener('submit', async e => {
+  e.preventDefault();
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = true; btn.textContent = 'Submitting...';
+
+  const regId = genRegId();
+  const payload = {
+    registration_id: regId,
+    full_name: document.getElementById('f-name').value.trim(),
+    student_id: document.getElementById('f-sid').value.trim(),
+    email: document.getElementById('f-email').value.trim(),
+    phone: document.getElementById('f-phone').value.trim(),
+    department: document.getElementById('f-dept').value,
+    semester: document.getElementById('f-sem').value,
+    experience_level: document.getElementById('f-level').value,
+    ieee_member: document.getElementById('f-ieee').value,
+    transaction_id: document.getElementById('f-txn').value.trim().toUpperCase(),
+    motivation: document.getElementById('f-why').value.trim(),
+    registered_at: new Date().toISOString()
+  };
+
+  if (!isSupabaseConfigured()) {
+    demoData.push(payload);
+    localStorage.setItem('demoRegistrations', JSON.stringify(demoData));
+    btn.disabled = false; btn.textContent = '✅ Submit Registration';
+    document.getElementById('reg-id-display').textContent = regId;
+    document.getElementById('success-modal').classList.add('show');
+    document.getElementById('reg-form').reset();
+    return;
+  }
+
+  try {
+    const res = await sbFetch('registrations', {
+      method: 'POST',
+      headers: { 'Prefer': 'return=minimal' },
+      body: JSON.stringify(payload)
+    });
+    if (res.ok || res.status === 201) {
+      document.getElementById('reg-id-display').textContent = regId;
+      document.getElementById('success-modal').classList.add('show');
+      document.getElementById('reg-form').reset();
+      document.getElementById('cfg-banner').style.display = 'none';
+    } else {
+      const err = await res.json().catch(() => ({}));
+      showToast(err.code === '23505' ? 'Already registered with this ID or Email!' : 'Submission failed. Please try again.', 'error');
+    }
+  } catch { showToast('Network error. Check your connection.', 'error'); }
+  finally { btn.disabled = false; btn.textContent = '✅ Submit Registration'; }
+});
+
+if (isSupabaseConfigured()) document.getElementById('cfg-banner').style.display = 'none';
+
+// ── CERTIFICATE LOOKUP ──
+function lookupCert() {
+  const id = document.getElementById('cert-id-input').value.trim().toUpperCase();
+  const resultEl = document.getElementById('cert-result');
+  const notFoundEl = document.getElementById('cert-not-found');
+  resultEl.classList.remove('show');
+  notFoundEl.classList.remove('show');
+  if (!id) { showToast('Please enter your Registration ID', 'error'); return; }
+  const found = allData.find(r => r.registration_id && r.registration_id.toUpperCase() === id);
+  if (found) {
+    document.getElementById('cert-name').textContent = found.full_name;
+    document.getElementById('cert-info').innerHTML =
+      `<strong>Registration ID:</strong> ${found.registration_id}<br>
+       <strong>Department:</strong> ${found.department || '—'}<br>
+       <strong>Workshop:</strong> Embedded System &amp; IoT Workshop · IEEE DIU SB SIGHT`;
+    const dlBtn = document.getElementById('cert-dl-link');
+    dlBtn.href = CERT_BASE_URL + id + '.pdf';
+    dlBtn.dataset.regid = id;
+    dlBtn.dataset.name = found.full_name;
+    resultEl.classList.add('show');
+  } else {
+    notFoundEl.classList.add('show');
+  }
+}
+
+function downloadCert(e) {
+  const name = e.currentTarget.dataset.name;
+  const regid = e.currentTarget.dataset.regid;
+  if (CERT_BASE_URL.includes('YOUR_GITHUB')) { e.preventDefault(); generateCertPDF(name, regid); }
+}
+
+// ── PDF CERT ──
+function generateCertPDF(name, regId, dept) {
+  if (typeof window.jspdf === 'undefined') { showToast('PDF library loading... try again shortly', 'error'); return; }
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
+  const W = 297, H = 210;
+  doc.setFillColor(26, 58, 15); doc.rect(0, 0, W, H, 'F');
+  doc.setFillColor(45, 80, 22); doc.rect(8, 8, W - 16, H - 16, 'F');
+  doc.setFillColor(26, 58, 15); doc.rect(12, 12, W - 24, H - 24, 'F');
+  doc.setDrawColor(139, 195, 74); doc.setLineWidth(1.5); doc.rect(14, 14, W - 28, H - 28);
+  doc.setLineWidth(0.5); doc.rect(16, 16, W - 32, H - 32);
+  [[18,18],[W-18,18],[18,H-18],[W-18,H-18]].forEach(([x,y]) => { doc.setFillColor(139,195,74); doc.circle(x,y,2,'F'); });
+  doc.setTextColor(100,180,255); doc.setFontSize(9); doc.setFont('helvetica','bold');
+  doc.text('IEEE DIU STUDENT BRANCH  ·  SIGHT GROUP', W/2, 28, {align:'center'});
+  doc.setDrawColor(139,195,74); doc.setLineWidth(0.8); doc.line(40,33,W-40,33);
+  doc.setTextColor(139,195,74); doc.setFontSize(13); doc.setFont('helvetica','normal');
+  doc.text('CERTIFICATE OF PARTICIPATION', W/2, 44, {align:'center'});
+  doc.setTextColor(196,196,196); doc.setFontSize(10); doc.text('This is to certify that', W/2, 60, {align:'center'});
+  doc.setTextColor(255,255,255); doc.setFontSize(26); doc.setFont('helvetica','bold');
+  doc.text(name || 'Participant Name', W/2, 80, {align:'center'});
+  doc.setDrawColor(139,195,74); doc.setLineWidth(0.8);
+  const nw = doc.getTextWidth(name || 'Participant Name');
+  doc.line(W/2-nw/2, 83, W/2+nw/2, 83);
+  doc.setTextColor(196,225,165); doc.setFontSize(10); doc.setFont('helvetica','normal');
+  doc.text('has successfully completed the', W/2, 95, {align:'center'});
+  doc.setTextColor(255,255,255); doc.setFontSize(14); doc.setFont('helvetica','bold');
+  doc.text('Embedded System & Internet of Things Workshop', W/2, 107, {align:'center'});
+  doc.setFontSize(9); doc.setFont('helvetica','normal'); doc.setTextColor(196,225,165);
+  doc.text('Organized by IEEE DIU SB SIGHT Group', W/2, 116, {align:'center'});
+  doc.setTextColor(100,180,255); doc.setFontSize(8);
+  doc.text('Registration ID: ' + (regId||'—') + (dept ? '   |   '+dept : ''), W/2, 126, {align:'center'});
+  doc.setDrawColor(139,195,74); doc.setLineWidth(0.5); doc.line(40,140,W-40,140);
+  [60,W/2,W-60].forEach((x,i) => {
+    doc.setDrawColor(139,195,74); doc.setLineWidth(0.5); doc.line(x-25,158,x+25,158);
+    doc.setTextColor(196,225,165); doc.setFontSize(7.5);
+    doc.text(['Workshop Instructor','Chairman, IEEE DIU SB','Chair, IEEE DIU SB SIGHT'][i], x, 163, {align:'center'});
+  });
+  doc.setTextColor(100,100,100); doc.setFontSize(7);
+  doc.text('Daffodil International University  ·  Dhaka, Bangladesh  ·  2026', W/2, H-18, {align:'center'});
+  doc.text('IEEE — Advancing Technology for Humanity', W/2, H-13, {align:'center'});
+  doc.save('Certificate_' + (name||'Participant').replace(/\s+/g,'_') + '_IEEE_DIU.pdf');
+  showToast('Certificate downloaded!');
+}
+
+// ── ADMIN ──
+function openAdmin() {
+  document.getElementById('admin-ov').classList.add('show');
+  document.getElementById('admin-login-screen').style.display = 'flex';
+  document.getElementById('admin-dashboard').style.display = 'none';
+  document.getElementById('admin-pass').value = '';
+  document.getElementById('admin-err').classList.remove('show');
+}
+function closeAdmin() { document.getElementById('admin-ov').classList.remove('show'); }
+
+function adminLogin() {
+  const pass = document.getElementById('admin-pass').value;
+  if (pass === ADMIN_PASSWORD) {
+    document.getElementById('admin-login-screen').style.display = 'none';
+    document.getElementById('admin-dashboard').style.display = 'block';
+    loadAdminData();
+  } else {
+    document.getElementById('admin-err').classList.add('show');
+    document.getElementById('admin-pass').value = '';
+    document.getElementById('admin-pass').focus();
+  }
+}
+document.getElementById('admin-pass').addEventListener('keydown', e => { if (e.key === 'Enter') adminLogin(); });
+
+function showAdminTab(tab, btn) {
+  document.querySelectorAll('.admin-nav-item').forEach(i => i.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+async function loadAdminData() {
+  if (!isSupabaseConfigured()) {
+    allData = JSON.parse(localStorage.getItem('demoRegistrations') || '[]');
+    renderAdminTable(allData);
+    updateStats(allData);
+    return;
+  }
+  try {
+    const res = await sbFetch('registrations?select=*&order=registered_at.desc', {
+      headers: { 'Accept': 'application/json' }
+    });
+    const text = await res.text();
+    try { allData = JSON.parse(text); } catch { allData = []; }
+    if (!Array.isArray(allData)) allData = [];
+    renderAdminTable(allData);
+    updateStats(allData);
+  } catch (err) {
+    showToast('Failed to load: ' + err.message, 'error');
+  }
+}
+
+function updateStats(data) {
+  document.getElementById('stat-total').textContent = data.length;
+  document.getElementById('stat-ieee').textContent = data.filter(r => r.ieee_member === 'Yes').length;
+  const depts = new Set(data.map(r => r.department).filter(Boolean));
+  document.getElementById('stat-depts').textContent = depts.size;
+  const today = new Date().toDateString();
+  document.getElementById('stat-today').textContent = data.filter(r => r.registered_at && new Date(r.registered_at).toDateString() === today).length;
+}
+
+function renderAdminTable(data) {
+  const tbody = document.getElementById('admin-tbody');
+  const countEl = document.getElementById('table-count');
+  if (countEl) countEl.textContent = data.length + ' registrations found';
+  if (!data.length) {
+    tbody.innerHTML = '<tr><td colspan="13" class="no-data">📭 No registrations found.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = data.map((r, i) => `
+    <tr>
+      <td class="row-num">${i + 1}</td>
+      <td><span class="reg-id-cell">${r.registration_id || '—'}</span></td>
+      <td class="name-cell">${r.full_name || '—'}</td>
+      <td style="color:rgba(255,255,255,.7);font-size:.78rem">${r.student_id || '—'}</td>
+      <td class="email-cell">${r.email || '—'}</td>
+      <td style="font-size:.78rem">${r.phone || '—'}</td>
+      <td style="font-size:.75rem;color:rgba(255,255,255,.7);max-width:140px">${(r.department || '—').replace(' & ',' &amp; ')}</td>
+      <td style="font-size:.75rem">${r.semester || '—'}</td>
+      <td style="font-size:.75rem;color:rgba(255,255,255,.65)">${r.experience_level || '—'}</td>
+      <td><span class="badge-${r.ieee_member === 'Yes' ? 'ieee' : 'no'}">${r.ieee_member || 'No'}</span></td>
+      <td><span class="badge-txn">${r.transaction_id || '—'}</span></td>
+      <td style="font-size:.72rem;color:rgba(255,255,255,.4);white-space:nowrap">${r.registered_at ? new Date(r.registered_at).toLocaleDateString('en-BD') : '—'}</td>
+      <td>
+        <div class="td-act">
+          <button class="td-btn edit" onclick="openEdit('${r.registration_id}')">✏️</button>
+          <button class="td-btn pdf" onclick="generateCertPDF('${(r.full_name||'').replace(/'/g,"\\'")}','${r.registration_id||''}','${(r.department||'').replace(/'/g,"\\'")}')">📄</button>
+          <button class="td-btn del" onclick="deleteReg('${r.registration_id || r.id}',this)">🗑️</button>
+        </div>
+      </td>
+    </tr>`).join('');
+}
+
+function filterTable() {
+  const q = document.getElementById('search-input').value.toLowerCase();
+  const dept = document.getElementById('filter-dept').value;
+  const ieee = document.getElementById('filter-ieee').value;
+  const filtered = allData.filter(r => {
+    const matchQ = !q || [r.full_name, r.student_id, r.email, r.department, r.registration_id, r.transaction_id].some(v => v && v.toLowerCase().includes(q));
+    const matchDept = !dept || r.department === dept;
+    const matchIeee = !ieee || r.ieee_member === ieee;
+    return matchQ && matchDept && matchIeee;
+  });
+  renderAdminTable(filtered);
+}
+
+async function deleteReg(regId) {
+  if (!confirm('Delete this registration?')) return;
+  if (!isSupabaseConfigured()) {
+    demoData = demoData.filter(r => r.registration_id !== regId);
+    localStorage.setItem('demoRegistrations', JSON.stringify(demoData));
+    allData = demoData; renderAdminTable(allData); updateStats(allData);
+    showToast('Deleted'); return;
+  }
+  try {
+    await sbFetch('registrations?registration_id=eq.' + regId, { method: 'DELETE' });
+    allData = allData.filter(r => r.registration_id !== regId);
+    renderAdminTable(allData); updateStats(allData);
+    showToast('Registration deleted');
+  } catch { showToast('Delete failed', 'error'); }
+}
+
+async function clearAll() {
+  if (!isSupabaseConfigured()) {
+    demoData = []; allData = [];
+    localStorage.setItem('demoRegistrations', '[]');
+    renderAdminTable([]); updateStats([]);
+    showToast('All cleared'); return;
+  }
+  try {
+    await sbFetch('registrations?id=gte.0', { method: 'DELETE' });
+    allData = []; renderAdminTable([]); updateStats([]);
+    showToast('All registrations cleared');
+  } catch { showToast('Failed to clear', 'error'); }
+}
+
+// ── EDIT ──
+function openEdit(regId) {
+  const r = allData.find(x => x.registration_id === regId);
+  if (!r) return;
+  editingId = regId;
+  document.getElementById('e-name').value = r.full_name || '';
+  document.getElementById('e-sid').value = r.student_id || '';
+  document.getElementById('e-email').value = r.email || '';
+  document.getElementById('e-phone').value = r.phone || '';
+  document.getElementById('e-dept').value = r.department || '';
+  document.getElementById('e-sem').value = r.semester || '';
+  document.getElementById('e-level').value = r.experience_level || '';
+  document.getElementById('e-ieee').value = r.ieee_member || 'No';
+  document.getElementById('e-txn').value = r.transaction_id || '';
+  document.getElementById('edit-ov').classList.add('show');
+}
+function closeEdit() { document.getElementById('edit-ov').classList.remove('show'); editingId = null; }
+
+async function saveEdit() {
+  if (!editingId) return;
+  const updated = {
+    full_name: document.getElementById('e-name').value.trim(),
+    student_id: document.getElementById('e-sid').value.trim(),
+    email: document.getElementById('e-email').value.trim(),
+    phone: document.getElementById('e-phone').value.trim(),
+    department: document.getElementById('e-dept').value.trim(),
+    semester: document.getElementById('e-sem').value.trim(),
+    experience_level: document.getElementById('e-level').value.trim(),
+    ieee_member: document.getElementById('e-ieee').value.trim(),
+    transaction_id: document.getElementById('e-txn').value.trim().toUpperCase()
+  };
+  if (!isSupabaseConfigured()) {
+    const idx = demoData.findIndex(r => r.registration_id === editingId);
+    if (idx !== -1) { demoData[idx] = {...demoData[idx], ...updated}; localStorage.setItem('demoRegistrations', JSON.stringify(demoData)); allData = demoData; }
+    renderAdminTable(allData); updateStats(allData);
+    showToast('Updated'); closeEdit(); return;
+  }
+  try {
+    await sbFetch('registrations?registration_id=eq.' + editingId, {
+      method: 'PATCH', headers: {'Prefer':'return=minimal'}, body: JSON.stringify(updated)
+    });
+    const idx = allData.findIndex(r => r.registration_id === editingId);
+    if (idx !== -1) allData[idx] = {...allData[idx], ...updated};
+    renderAdminTable(allData); updateStats(allData);
+    showToast('Registration updated'); closeEdit();
+  } catch { showToast('Update failed', 'error'); }
+}
+
+// ── EXPORT CSV ──
+function exportCSV() {
+  if (!allData.length) { showToast('No data to export', 'error'); return; }
+  const headers = ['#','Reg ID','Name','Student ID','Email','Phone','Department','Semester','Level','IEEE Member','Transaction ID','Registered At'];
+  const rows = allData.map((r, i) => [i+1, r.registration_id||'', r.full_name||'', r.student_id||'', r.email||'', r.phone||'', r.department||'', r.semester||'', r.experience_level||'', r.ieee_member||'', r.transaction_id||'', r.registered_at ? new Date(r.registered_at).toLocaleString() : '']);
+  const csv = [headers, ...rows].map(r => r.map(v => `"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+  a.download = 'IEEE_DIU_Workshop_Registrations_' + new Date().toISOString().split('T')[0] + '.csv';
+  a.click();
+  showToast('CSV exported!');
+}
+
+function generateAllPDF() {
+  if (!allData.length) { showToast('No data to export', 'error'); return; }
+  if (typeof window.jspdf === 'undefined') { showToast('PDF library not loaded', 'error'); return; }
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ unit: 'mm', format: 'a4' });
+  doc.setFillColor(26, 58, 15); doc.rect(0, 0, 210, 297, 'F');
+  doc.setTextColor(139, 195, 74); doc.setFontSize(14); doc.setFont('helvetica', 'bold');
+  doc.text('IEEE DIU SB SIGHT — Workshop Registrations', 105, 20, { align: 'center' });
+  doc.setTextColor(255, 255, 255); doc.setFontSize(8); doc.setFont('helvetica', 'normal');
+  doc.text('Generated: ' + new Date().toLocaleString(), 105, 28, { align: 'center' });
+  let y = 38;
+  const cols = [8, 38, 75, 108, 143, 163, 185];
+  const heads = ['#', 'Name', 'Student ID', 'Department', 'IEEE', 'Txn ID', 'Date'];
+  doc.setFillColor(45, 80, 22); doc.rect(8, y - 4, 194, 8, 'F');
+  doc.setTextColor(196, 225, 165); doc.setFontSize(7); doc.setFont('helvetica', 'bold');
+  heads.forEach((h, i) => doc.text(h, cols[i], y, {}));
+  y += 6;
+  allData.forEach((r, i) => {
+    if (y > 280) { doc.addPage(); doc.setFillColor(26,58,15); doc.rect(0,0,210,297,'F'); y = 20; }
+    if (i % 2 === 0) { doc.setFillColor(35, 65, 20); doc.rect(8, y - 4, 194, 7, 'F'); }
+    doc.setTextColor(220, 220, 220); doc.setFontSize(6.5); doc.setFont('helvetica', 'normal');
+    const row = [String(i+1), (r.full_name||'').substring(0,20), r.student_id||'', (r.department||'').substring(0,20), r.ieee_member||'', (r.transaction_id||'').substring(0,10), r.registered_at ? new Date(r.registered_at).toLocaleDateString() : ''];
+    row.forEach((v, ci) => doc.text(v, cols[ci], y, {}));
+    y += 7;
+  });
+  doc.save('IEEE_DIU_Registrations.pdf');
+  showToast('PDF exported!');
+}
+
+// ── CERT ENTER KEY ──
+document.getElementById('cert-id-input').addEventListener('keydown', e => { if (e.key === 'Enter') lookupCert(); });
+
+// ── INIT ──
+window.addEventListener('load', () => {
+  if (!isSupabaseConfigured()) {
+    allData = JSON.parse(localStorage.getItem('demoRegistrations') || '[]');
+  }
+});
+</script>
+</body>
+</html>
