@@ -1,10 +1,10 @@
-
+ 
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Embedded System & IoT Workshop — IEEE DIU SB SIGHT</title>
+  <title>Embedded System & IoT Workshop — IEEE DIU SB SIGHT Group</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box }
@@ -18,8 +18,6 @@
     ::-webkit-scrollbar { width: 5px }
     ::-webkit-scrollbar-track { background: var(--gbg) }
     ::-webkit-scrollbar-thumb { background: var(--gl); border-radius: 3px }
-
-    /* NAV */
     nav { background: linear-gradient(135deg, var(--gd), var(--gdr)); padding: .55rem 0; position: sticky; top: 0; z-index: 900; box-shadow: 0 2px 15px rgba(45,80,22,.45); backdrop-filter: blur(10px) }
     nav .c { max-width: 1200px; margin: 0 auto; padding: 0 1.4rem; display: flex; justify-content: space-between; align-items: center }
     .nav-logo { color: #fff; font-weight: 700; display: flex; align-items: center; gap: .5rem; font-size: .95rem }
@@ -37,8 +35,6 @@
     .nav-admin-btn:hover { background:rgba(255,255,255,.22)!important }
     .nav-admin-btn::after { display:none!important }
     .mob-btn { display:none; background:none; border:none; color:#fff; font-size:1.5rem; cursor:pointer }
-
-    /* HERO */
     .hero { position:relative; height:100vh; min-height:600px; display:flex; align-items:center; justify-content:center; overflow:hidden }
     .hero-bg { position:absolute; inset:0; background:linear-gradient(135deg,rgba(74,124,44,0.6),rgba(45,80,22,0.6)),url('https://lh3.googleusercontent.com/d/13GegJ4rf8hjLU_6Cw1VC0WxwVZPozajx') center/cover }
     .hero-bg::before { content:''; position:absolute; inset:0; background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"><path d="M0,60 Q300,0 600,60 T1200,60 L1200,0 L0,0 Z" fill="rgba(139,195,74,0.12)"/></svg>') repeat-x; animation:wave 22s linear infinite }
@@ -67,15 +63,11 @@
     @keyframes zoomInStagger { 0%{opacity:0;transform:scale(0.85)} 100%{opacity:1;transform:scale(1)} }
     @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
     @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
-
-    /* SECTIONS */
     section { padding:5rem 2rem }
     .c { max-width:1200px; margin:0 auto }
     section h2 { font-size:clamp(1.7rem,3.5vw,2.8rem); margin-bottom:.8rem; text-align:center; background:linear-gradient(135deg,var(--gm),var(--gd)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text }
     .ssub { text-align:center; color:var(--tg); font-size:1.05rem; margin-bottom:3rem }
     .sa { background:linear-gradient(135deg,var(--gbg),var(--gbg2)) }
-
-    /* ABOUT */
     .about-wrap { background:#fff; border-radius:24px; padding:4rem; box-shadow:0 20px 60px rgba(0,0,0,.1); position:relative; overflow:hidden; border:1px solid rgba(139,195,74,.15) }
     .about-wrap::before { content:''; position:absolute; top:0; left:0; width:100%; height:6px; background:linear-gradient(90deg,var(--gl),var(--gm),var(--gd),var(--gl)); background-size:200% 100%; animation:gradientShift 4s ease infinite }
     @keyframes gradientShift { 0%{background-position:0 0} 50%{background-position:100% 0} 100%{background-position:0 0} }
@@ -96,8 +88,6 @@
     .about-highlight { background:linear-gradient(135deg,rgba(139,195,74,.1),rgba(168,221,82,.1)); padding:1.5rem; border-radius:12px; border-left:4px solid var(--gl); margin-top:2rem }
     .about-highlight p { color:var(--tg); font-size:.95rem; line-height:1.8; margin:0 }
     .about-highlight strong { color:var(--gm); font-weight:700 }
-
-    /* TOPICS */
     .tgrid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:1.8rem; margin-top:2rem }
     .tcard { background:#fff; padding:2rem 1.8rem; border-radius:18px; box-shadow:0 8px 24px rgba(0,0,0,.08); transition:all .4s cubic-bezier(.175,.885,.32,1.275); position:relative; overflow:hidden; text-align:center }
     .tcard::before { content:''; position:absolute; top:0; left:0; width:100%; height:4px; background:linear-gradient(90deg,var(--gl),transparent); transform:scaleX(0); transform-origin:left; transition:transform .4s }
@@ -106,8 +96,6 @@
     .tico { font-size:3.2rem; margin-bottom:1rem; animation:float 3s ease-in-out infinite }
     .tcard h4 { color:var(--gm); font-size:1.05rem; margin-bottom:8px; font-weight:700 }
     .tcard p { color:var(--tg); font-size:.88rem; line-height:1.7 }
-
-    /* SCHEDULE */
     .dtabs { display:flex; margin-bottom:26px; width:fit-content; gap:.5rem }
     .dtab { padding:11px 28px; cursor:pointer; background:transparent; border:2px solid rgba(45,80,22,.25); color:var(--tg); font-weight:700; font-size:.88rem; transition:all .3s; border-radius:25px }
     .dtab.active { background:linear-gradient(135deg,var(--gm),var(--gd)); color:#fff; border-color:var(--gm) }
@@ -123,10 +111,8 @@
     .tlt { font-size:.7rem; font-weight:700; color:var(--gl); letter-spacing:1.5px; text-transform:uppercase; margin-bottom:3px }
     .tln { font-size:1rem; font-weight:700; color:var(--gm); margin-bottom:3px }
     .tld { font-size:.85rem; color:var(--tg) }
-
-    /* QUIZ */
     .quiz-section { background:linear-gradient(135deg,var(--gd),var(--gdr)); position:relative; overflow:hidden }
-    .quiz-section::before { content:'🧠'; position:absolute; font-size:18rem; opacity:.04; right:-3rem; top:-3rem; animation:float 10s ease-in-out infinite }
+    .quiz-section::before { content:'🏠'; position:absolute; font-size:18rem; opacity:.04; right:-3rem; top:-3rem; animation:float 10s ease-in-out infinite }
     .quiz-section h2 { -webkit-text-fill-color:#fff; color:#fff; background:none }
     .quiz-section .ssub { color:rgba(255,255,255,.75) }
     .quiz-cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:2rem; margin-top:2rem }
@@ -138,16 +124,12 @@
     .qcard .badge { display:inline-block; margin-top:.8rem; background:linear-gradient(135deg,var(--gl),#689f38); color:#fff; padding:4px 14px; border-radius:20px; font-size:.78rem; font-weight:700 }
     .quiz-note { background:rgba(255,193,7,.15); border:1px solid rgba(255,193,7,.35); border-radius:16px; padding:1.5rem 2rem; margin-top:2rem; color:rgba(255,255,255,.88); text-align:center; font-size:.95rem; line-height:1.75 }
     .quiz-note strong { color:#ffd54f }
-
-    /* BENEFITS */
     .benefits-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1.8rem; margin-top:2rem }
     .bcard { background:#fff; padding:2rem 1.8rem; border-radius:18px; box-shadow:0 8px 24px rgba(0,0,0,.08); text-align:center; transition:all .4s cubic-bezier(.175,.885,.32,1.275) }
     .bcard:hover { transform:translateY(-8px) scale(1.02); box-shadow:0 20px 40px rgba(76,175,80,.22) }
     .bico { font-size:3rem; margin-bottom:.8rem; animation:bounce 2.5s ease-in-out infinite }
     .bcard h3 { color:var(--gm); font-size:1rem; margin-bottom:.5rem; font-weight:700 }
     .bcard p { color:var(--tg); font-size:.88rem; line-height:1.6 }
-
-    /* INSTRUCTOR */
     .inst-wrap { background:linear-gradient(135deg,var(--gd),var(--gdr)) }
     .inst-wrap h2 { -webkit-text-fill-color:#fff; color:#fff; background:none }
     .inst-wrap .ssub { color:rgba(255,255,255,.75) }
@@ -166,8 +148,6 @@
     .inst-extra { background:rgba(0,102,153,.2); border:1px solid rgba(0,170,221,.3); border-radius:14px; padding:1.2rem 1.5rem; margin-top:1rem }
     .inst-extra p { color:rgba(255,255,255,.82); font-size:.88rem; line-height:1.7 }
     .inst-extra strong { color:#7dd8ff }
-
-    /* CERT */
     .cert-section { background:linear-gradient(135deg,var(--gd),var(--gdr)) }
     .cert-section h2 { -webkit-text-fill-color:#fff; color:#fff; background:none }
     .cert-section .ssub { color:rgba(255,255,255,.75) }
@@ -185,8 +165,6 @@
     .cert-note { color:rgba(255,255,255,.6); font-size:.82rem; margin-top:1rem }
     .cert-not-found { background:rgba(255,100,100,.1); border:1px solid rgba(255,100,100,.3); border-radius:16px; padding:1.5rem; color:rgba(255,255,255,.8); text-align:center; display:none }
     .cert-not-found.show { display:block; animation:fadeUp .4s ease }
-
-    /* REGISTRATION */
     .reg-wrap { background:linear-gradient(135deg,var(--gd),var(--gdr)) }
     .reg-wrap h2 { -webkit-text-fill-color:#fff; color:#fff; background:none }
     .reg-wrap .ssub { color:rgba(255,255,255,.75) }
@@ -204,8 +182,6 @@
     .fsub:disabled { opacity:.65; cursor:not-allowed; transform:none }
     .cfg-banner { grid-column:1/-1; background:linear-gradient(135deg,#fff9e6,#ffecb3); border-left:5px solid #ffc107; padding:13px 17px; border-radius:10px; font-size:.78rem; color:#856404; line-height:1.8 }
     .cfg-banner strong { color:#5d4307 }
-
-    /* FOOTER */
     footer { background:linear-gradient(135deg,var(--gd),var(--gdr)); color:#fff; text-align:center; padding:3rem 2rem; box-shadow:0 -5px 20px rgba(45,80,22,.2) }
     .flogos { display:flex; justify-content:center; align-items:center; gap:2.5rem; flex-wrap:wrap; margin-bottom:1rem }
     .flogo { text-align:center; transition:transform .3s }
@@ -214,8 +190,6 @@
     .flogo img:hover { box-shadow:0 10px 30px rgba(139,195,74,.4); transform:scale(1.05) }
     .flogo p { color:#fff; font-weight:600; font-size:.82rem; margin-top:7px; opacity:.9 }
     .fdiv { width:80%; height:2px; margin:1.5rem auto; background:linear-gradient(90deg,transparent,var(--gl),transparent) }
-
-    /* MODAL */
     .mov { display:none; position:fixed; inset:0; z-index:800; background:rgba(26,58,15,.9); backdrop-filter:blur(8px); align-items:center; justify-content:center; padding:20px }
     .mov.show { display:flex }
     .mbox { background:#fff; border-radius:24px; padding:40px; max-width:460px; width:100%; text-align:center; box-shadow:0 30px 80px rgba(0,0,0,.35); animation:zoomIn .4s cubic-bezier(.175,.885,.32,1.275) }
@@ -226,20 +200,8 @@
     .mid { background:linear-gradient(135deg,var(--gbg),var(--gbg2)); border:2px solid var(--gl); border-radius:12px; padding:12px 20px; margin-bottom:20px; font-size:1rem; font-weight:700; color:var(--gm); letter-spacing:2px }
     .mcl { padding:12px 32px; border-radius:30px; background:linear-gradient(135deg,var(--gl),#689f38); color:#fff; border:none; cursor:pointer; font-size:.92rem; font-weight:700; transition:all .3s }
     .mcl:hover { transform:translateY(-2px); box-shadow:0 8px 20px rgba(76,175,80,.4) }
-
-    /* TOAST */
-    #toast { position:fixed; bottom:28px; right:28px; z-index:600; padding:13px 20px; border-radius:12px; font-size:.83rem; font-weight:700; transform:translateX(200%); transition:transform .4s cubic-bezier(.175,.885,.32,1.275); max-width:290px; box-shadow:0 8px 24px rgba(0,0,0,.2) }
-    #toast.show { transform:translateX(0) }
-    #toast.success { background:linear-gradient(135deg,var(--gl),#689f38); color:#fff }
-    #toast.error { background:linear-gradient(135deg,#e53935,#c62828); color:#fff }
-
-    /* ══════════════════════════════════════
-       ADMIN PANEL — REDESIGNED
-    ══════════════════════════════════════ */
     .admin-ov { display:none; position:fixed; inset:0; z-index:950; background:#0b1a0d; overflow-y:auto }
     .admin-ov.show { display:block }
-
-    /* Sidebar layout */
     .admin-layout { display:flex; min-height:100vh }
     .admin-sidebar { width:240px; background:linear-gradient(180deg,#142a09,#0b1a0d); border-right:1px solid rgba(139,195,74,.12); padding:1.5rem 0; flex-shrink:0; position:sticky; top:0; height:100vh; overflow-y:auto }
     .admin-logo { padding:0 1.5rem 1.5rem; border-bottom:1px solid rgba(139,195,74,.1); margin-bottom:1rem }
@@ -253,15 +215,11 @@
     .admin-sidebar-footer { padding:1rem 1.5rem; margin-top:auto; border-top:1px solid rgba(139,195,74,.1) }
     .admin-close-btn { width:100%; padding:.7rem; border-radius:10px; background:rgba(255,100,100,.1); border:1px solid rgba(255,100,100,.2); color:#ff8a80; font-size:.82rem; font-weight:700; cursor:pointer; transition:all .3s }
     .admin-close-btn:hover { background:rgba(255,100,100,.25) }
-
-    /* Main content */
     .admin-main { flex:1; padding:2rem; overflow-x:hidden }
     .admin-topbar { display:flex; justify-content:space-between; align-items:center; margin-bottom:2rem }
     .admin-page-title { font-size:1.4rem; font-weight:800; color:#fff }
     .admin-page-sub { font-size:.78rem; color:rgba(255,255,255,.4); margin-top:2px }
     .admin-topbar-right { display:flex; gap:.8rem; align-items:center }
-
-    /* Stat cards */
     .admin-stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:1rem; margin-bottom:2rem }
     .ast { border-radius:16px; padding:1.4rem 1.2rem; position:relative; overflow:hidden; transition:all .3s }
     .ast:hover { transform:translateY(-4px) }
@@ -273,14 +231,10 @@
     .ast-num { font-size:2rem; font-weight:900; color:#fff; line-height:1 }
     .ast-lbl { font-size:.68rem; color:rgba(255,255,255,.5); letter-spacing:1.5px; text-transform:uppercase; margin-top:4px }
     .ast-trend { position:absolute; top:1rem; right:1rem; font-size:.68rem; background:rgba(255,255,255,.1); padding:2px 8px; border-radius:20px; color:rgba(255,255,255,.6) }
-
-    /* Table section */
     .admin-section { background:rgba(255,255,255,.03); border:1px solid rgba(139,195,74,.1); border-radius:18px; overflow:hidden; margin-bottom:1.5rem }
     .admin-section-header { padding:1.2rem 1.5rem; border-bottom:1px solid rgba(139,195,74,.08); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:.8rem }
     .admin-section-title { font-size:.95rem; font-weight:700; color:#fff }
     .admin-section-sub { font-size:.72rem; color:rgba(255,255,255,.4); margin-top:1px }
-
-    /* Toolbar */
     .admin-toolbar { padding:1rem 1.5rem; border-bottom:1px solid rgba(139,195,74,.06); display:flex; gap:.8rem; flex-wrap:wrap; align-items:center; background:rgba(0,0,0,.15) }
     .atb-input { padding:.55rem .9rem; border-radius:8px; border:1px solid rgba(139,195,74,.2); background:rgba(255,255,255,.06); color:#fff; font-family:inherit; font-size:.82rem; outline:none; transition:border-color .3s }
     .atb-input:focus { border-color:rgba(139,195,74,.5) }
@@ -293,8 +247,6 @@
     .atb-btn.blue:hover { background:rgba(100,180,255,.2) }
     .atb-btn.green { border-color:rgba(76,175,80,.25); background:rgba(76,175,80,.1); color:#a5d6a7 }
     .atb-btn.green:hover { background:rgba(76,175,80,.22) }
-
-    /* Table */
     .admin-table-wrap { overflow-x:auto }
     .admin-table { width:100%; border-collapse:collapse; font-size:.8rem }
     .admin-table th { background:rgba(20,42,9,.9); color:rgba(197,225,165,.7); padding:.8rem 1rem; text-align:left; font-size:.68rem; letter-spacing:1.5px; text-transform:uppercase; white-space:nowrap; border-bottom:1px solid rgba(139,195,74,.1) }
@@ -309,20 +261,15 @@
     .td-btn.edit:hover { background:rgba(100,180,255,.28) }
     .td-btn.pdf { background:rgba(139,195,74,.12); color:var(--gp); border:1px solid rgba(139,195,74,.2) }
     .td-btn.pdf:hover { background:rgba(139,195,74,.25) }
-
-    /* Badges */
     .badge-ieee { background:rgba(0,170,221,.15); color:#7dd8ff; padding:2px 8px; border-radius:20px; font-size:.67rem; font-weight:700; border:1px solid rgba(0,170,221,.2) }
     .badge-yes { background:rgba(76,175,80,.15); color:#a5d6a7; padding:2px 8px; border-radius:20px; font-size:.67rem; font-weight:700; border:1px solid rgba(76,175,80,.2) }
     .badge-no { background:rgba(255,255,255,.06); color:rgba(255,255,255,.45); padding:2px 8px; border-radius:20px; font-size:.67rem; font-weight:700 }
     .badge-txn { background:rgba(255,193,7,.12); color:#ffd54f; padding:2px 8px; border-radius:20px; font-size:.67rem; font-weight:600; border:1px solid rgba(255,193,7,.2); font-family:monospace; letter-spacing:.5px }
-
     .no-data { text-align:center; padding:3rem; color:rgba(255,255,255,.3); font-size:.9rem }
     .row-num { color:rgba(255,255,255,.25); font-size:.72rem; font-weight:600 }
     .reg-id-cell { font-family:monospace; font-size:.72rem; color:var(--gp); background:rgba(139,195,74,.08); padding:2px 6px; border-radius:4px }
     .name-cell { font-weight:700; color:#fff }
     .email-cell { font-size:.75rem; color:rgba(255,255,255,.55) }
-
-    /* Admin Login */
     .admin-login { display:flex; align-items:center; justify-content:center; min-height:100vh; padding:2rem; background:#0b1a0d }
     .al-box { background:rgba(255,255,255,.05); border:1px solid rgba(139,195,74,.2); border-radius:24px; padding:3rem; max-width:380px; width:100%; text-align:center; backdrop-filter:blur(10px) }
     .al-title { font-size:1.5rem; font-weight:800; color:#fff; margin-bottom:.5rem }
@@ -334,8 +281,6 @@
     .al-btn:hover { transform:translateY(-2px); box-shadow:0 8px 20px rgba(76,175,80,.4) }
     .al-err { color:#ff8a80; font-size:.83rem; margin-top:.5rem; display:none }
     .al-err.show { display:block }
-
-    /* Edit modal */
     .edit-ov { display:none; position:fixed; inset:0; z-index:1000; background:rgba(0,0,0,.75); backdrop-filter:blur(8px); align-items:center; justify-content:center; padding:20px }
     .edit-ov.show { display:flex }
     .edit-box { background:#142a09; border:1px solid rgba(139,195,74,.25); border-radius:20px; padding:2rem; max-width:580px; width:100%; max-height:90vh; overflow-y:auto }
@@ -350,12 +295,8 @@
     .edit-save { padding:10px 22px; border-radius:25px; background:linear-gradient(135deg,var(--gl),#689f38); color:#fff; border:none; font-weight:700; cursor:pointer; font-size:.88rem; transition:all .3s }
     .edit-save:hover { transform:translateY(-2px); box-shadow:0 6px 16px rgba(76,175,80,.4) }
     .edit-cancel { padding:10px 18px; border-radius:25px; background:rgba(255,255,255,.07); color:rgba(255,255,255,.6); border:1px solid rgba(255,255,255,.15); cursor:pointer; font-size:.88rem; transition:all .3s }
-
-    /* REVEAL */
     .reveal { opacity:0; transform:translateY(28px); transition:all .7s ease }
     .reveal.visible { opacity:1; transform:none }
-
-    /* RESPONSIVE */
     @media(max-width:768px) {
       nav ul { display:none!important; flex-direction:column!important; position:absolute!important; top:100%!important; left:0!important; right:0!important; background:linear-gradient(135deg,var(--gd),var(--gdr))!important; padding:1rem!important; gap:.4rem!important; box-shadow:0 4px 12px rgba(0,0,0,.25)!important; z-index:999!important }
       nav ul.active { display:flex!important }
@@ -395,7 +336,7 @@
   <div class="c">
     <div class="nav-logo">
       <img src="https://lh3.googleusercontent.com/d/1gjTgytjFynd4udSKZxtSrM7FKkPcE9P1" alt="IEEE" onerror="this.style.display='none'">
-      <span>IEEE DIU SB SIGHT</span>
+      <span>IEEE DIU SB SIGHT Group</span>
       <span class="ieee-badge">IEEE</span>
     </div>
     <button class="mob-btn" onclick="toggleMenu()">☰</button>
@@ -406,7 +347,7 @@
       <li><a href="#schedule">Schedule</a></li>
       <li><a href="#quiz">Quiz &amp; Prizes</a></li>
       <li><a href="#instructor">Instructor</a></li>
-      <li><a href="#fee">💳 Fee</a></li>
+      <li><a href="#fee">Fee</a></li>
       <li><a href="#cert">Certificate</a></li>
       <li><a href="#registration" class="nav-btn">Register</a></li>
       <li><a onclick="openAdmin()" class="nav-admin-btn">Admin</a></li>
@@ -420,17 +361,15 @@
   <div class="hero-ov"></div>
   <div class="hero-content">
     <h1>Embedded Systems<br><span>&amp; IoT Workshop</span></h1>
-    <p class="hero-sub">Practical Learning with Real Hardware</p>
-    <p class="hero-desc">Learn microcontroller programming, sensor integration, and IoT cloud connectivity through hands-on labs and live demonstrations.</p>
+    <p class="hero-sub">Build a Real Home Automation Project</p>
+    <p class="hero-desc">Learn microcontroller programming, sensor integration, and IoT connectivity — then build your own working Home Automation system from scratch!</p>
     <div class="hero-meta">
-      <div class="meta-pill">⏰ Total 4 Hours</div>
-      <div class="meta-pill">💻 Arduino &amp; ESP32</div>
-      <div class="meta-pill">📜 Certificate</div>
+       
     </div>
     <div class="hero-btns">
       <a href="#registration" class="btn btn-p">Register Now</a>
       <a href="#topics" class="btn btn-s">Curriculum</a>
-      <a href="#cert" class="btn btn-ieee">Get Certificate</a>
+      <a href="#rulebook" class="btn btn-ieee">Rulebook</a>
     </div>
   </div>
   <div class="scroll-ind"><div class="scroll-line"></div><span>SCROLL</span></div>
@@ -446,17 +385,17 @@
         <div class="about-left">
           <div class="about-title">Why Join This <span>Workshop?</span></div>
           <div class="about-item">
-            <div class="about-icon">🔧</div>
+            <div class="about-icon">🏠</div>
             <div class="about-content">
-              <h3>Hands-On Learning</h3>
-              <p>4 hours of intensive, practical labs with real Arduino, ESP32, and sensors. Every concept is taught through live coding and working hardware.</p>
+              <h3>Build Home Automation</h3>
+              <p>By the end of this workshop, every participant will have built a real, working Home Automation project — control lights, fans &amp; sensors from your smartphone!</p>
             </div>
           </div>
           <div class="about-item">
             <div class="about-icon">🎓</div>
             <div class="about-content">
-              <h3>IEEE Credentials</h3>
-              <p>Earn an official hardcopy IEEE DIU SB certificate signed by leadership. Plus, top 3 performers win prestigious recognition crests.</p>
+              <h3>IEEE Credentials + T-Shirt</h3>
+              <p>Every participant gets a free Workshop T-Shirt and an official hardcopy IEEE DIU SB certificate. Best team wins a prestigious framed certificate!</p>
             </div>
           </div>
           <div class="about-item">
@@ -467,7 +406,7 @@
             </div>
           </div>
           <div class="about-highlight">
-            <p><strong>Perfect for beginners to intermediate learners</strong> — Whether you're just starting out or have some experience, you'll walk away with real IoT skills for your portfolio.</p>
+            <p><strong>Perfect for beginners to intermediate learners</strong> — Whether you're just starting out or have some experience, you'll walk away with a real IoT Home Automation project for your portfolio.</p>
           </div>
         </div>
         <div class="about-right">
@@ -475,7 +414,7 @@
             <div class="stat-block"><div class="stat-number">2</div><div class="stat-label">Days</div></div>
             <div class="stat-block"><div class="stat-number">4</div><div class="stat-label">Hours Total</div></div>
             <div class="stat-block"><div class="stat-number">100%</div><div class="stat-label">Hands-On</div></div>
-            <div class="stat-block"><div class="stat-number">∞</div><div class="stat-label">Inspiration</div></div>
+            <div class="stat-block"><div class="stat-number">🏠</div><div class="stat-label">Real Project</div></div>
           </div>
         </div>
       </div>
@@ -487,27 +426,27 @@
 <section id="topics" class="sa">
   <div class="c">
     <h2>What You'll Learn</h2>
-    <p class="ssub">Core embedded systems and IoT concepts</p>
+    <p class="ssub">Step-by-step skills to build your own Home Automation system</p>
     <div class="tgrid reveal">
       <div class="tcard">
         <div class="tico"><span style="display:inline-block;width:60px;height:60px;background:linear-gradient(135deg,#8bc34a,#689f38);border-radius:15px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:28px">⚙️</span></div>
-        <h4>Arduino &amp; ESP32</h4>
-        <p>GPIO control, digital I/O, PWM, and basic microcontroller programming fundamentals.</p>
+        <h4>Arduino &amp; ESP32 Basics</h4>
+        <p>GPIO control, digital I/O, PWM, and microcontroller programming — the foundation of your Home Automation project.</p>
       </div>
       <div class="tcard">
         <div class="tico"><span style="display:inline-block;width:60px;height:60px;background:linear-gradient(135deg,#ff6b6b,#ee5a6f);border-radius:15px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:28px">🌡️</span></div>
-        <h4>Sensors &amp; Interfacing</h4>
-        <p>Temperature, humidity, motion sensors — practical real-world hardware integration.</p>
+        <h4>Sensors &amp; Smart Devices</h4>
+        <p>Temperature, humidity, motion &amp; relay modules — control real home appliances like lights and fans automatically.</p>
       </div>
       <div class="tcard">
         <div class="tico"><span style="display:inline-block;width:60px;height:60px;background:linear-gradient(135deg,#4ecdc4,#44b3aa);border-radius:15px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:28px">📱</span></div>
-        <h4>WiFi &amp; MQTT</h4>
-        <p>Connect devices to the cloud, wireless communication, and IoT messaging protocols.</p>
+        <h4>WiFi &amp; App Control</h4>
+        <p>Connect your home system to WiFi, control devices via smartphone app and MQTT — real wireless automation in action.</p>
       </div>
       <div class="tcard">
-        <div class="tico"><span style="display:inline-block;width:60px;height:60px;background:linear-gradient(135deg,#a29bfe,#6c5ce7);border-radius:15px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:28px">💻</span></div>
-        <h4>Live Demo &amp; Build</h4>
-        <p>Hands-on project showcase, debugging techniques, and real system deployment.</p>
+        <div class="tico"><span style="display:inline-block;width:60px;height:60px;background:linear-gradient(135deg,#a29bfe,#6c5ce7);border-radius:15px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:28px">🏠</span></div>
+        <h4>Home Automation Project</h4>
+        <p>Build a fully working Home Automation system — control lights, fans &amp; sensors remotely from your phone!</p>
       </div>
     </div>
   </div>
@@ -525,36 +464,36 @@
       </div>
       <div class="sc active" id="day1">
         <div class="tl">
-          <div class="tli"><div class="tlb"><div class="tlt">09:00 — 09:15</div><div class="tln">Welcome &amp; Setup</div><div class="tld">Check-in and development environment setup</div></div></div>
+          <div class="tli"><div class="tlb"><div class="tlt">09:00 — 09:15</div><div class="tln">Welcome &amp; Setup</div><div class="tld">Check-in, T-shirt distribution, and development environment setup</div></div></div>
           <div class="tli"><div class="tlb"><div class="tlt">09:15 — 10:00</div><div class="tln">Microcontroller Basics</div><div class="tld">Arduino &amp; ESP32 fundamentals, GPIO control, hands-on blinking LEDs</div></div></div>
-          <div class="tli"><div class="tlb"><div class="tlt">10:00 — 10:45</div><div class="tln">Sensor Integration Lab</div><div class="tld">Connect real sensors, read analog data, live demonstrations</div></div></div>
+          <div class="tli"><div class="tlb"><div class="tlt">10:00 — 10:45</div><div class="tln">Sensors &amp; Relay Integration</div><div class="tld">Connect sensors, relay modules — control real appliances with code</div></div></div>
           <div class="tli"><div class="tlb"><div class="tlt">10:45 — 11:00</div><div class="tln">Day 1 Recap &amp; Q&amp;A</div><div class="tld">Review and open discussion</div></div></div>
         </div>
       </div>
       <div class="sc" id="day2">
         <div class="tl">
           <div class="tli"><div class="tlb"><div class="tlt">09:00 — 09:15</div><div class="tln">Day 1 Recap</div><div class="tld">Quick review of previous day concepts</div></div></div>
-          <div class="tli"><div class="tlb"><div class="tlt">09:15 — 10:00</div><div class="tln">WiFi &amp; Cloud Connection</div><div class="tld">Connect ESP32 to WiFi, MQTT messaging, real-time dashboards</div></div></div>
-          <div class="tli"><div class="tlb"><div class="tlt">10:00 — 10:45</div><div class="tln">Final Project &amp; Demo</div><div class="tld">Live IoT system build and showcase by participants</div></div></div>
-          <div class="tli"><div class="tlb" style="border-left-color:#ffc107"><div class="tlt" style="color:#ffc107">10:45 — 11:00</div><div class="tln" style="color:#e65100">🧠 Quiz &amp; Awards</div><div class="tld">Knowledge quiz with crest awards for top 3 performers</div></div></div>
+          <div class="tli"><div class="tlb"><div class="tlt">09:15 — 10:00</div><div class="tln">WiFi &amp; App Control</div><div class="tld">Connect ESP32 to WiFi, MQTT, control appliances via smartphone app</div></div></div>
+          <div class="tli"><div class="tlb"><div class="tlt">10:00 — 10:45</div><div class="tln">🏠 Home Automation Project Build</div><div class="tld">Teams build and present their complete Home Automation system</div></div></div>
+          <div class="tli"><div class="tlb" style="border-left-color:#ffc107"><div class="tlt" style="color:#ffc107">10:45 — 11:00</div><div class="tln" style="color:#e65100">🧠 Quiz &amp; Awards Ceremony</div><div class="tld">Knowledge quiz + Best Team framed certificate + closing ceremony</div></div></div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- QUIZ -->
+<!-- QUIZ & PRIZES -->
 <section id="quiz" class="quiz-section">
   <div class="c">
-    <h2>Quiz Competition &amp; Awards</h2>
-    <p class="ssub">Test your knowledge and win recognition!</p>
+    <h2>Prizes &amp; Recognition</h2>
+    <p class="ssub">Every participant wins — here's what you'll take home!</p>
     <div class="quiz-cards reveal">
-      <div class="qcard"><div class="qcard-icon">🏅</div><h3>1st Place</h3><p>Champion Crest — Permanent recognition of excellence in the workshop quiz.</p><span class="badge">🥇 Champion</span></div>
-      <div class="qcard"><div class="qcard-icon">🥈</div><h3>2nd Place</h3><p>1st Runner-Up Crest — Outstanding performance in technical knowledge.</p><span class="badge">🥈 Runner-Up</span></div>
-      <div class="qcard"><div class="qcard-icon">🥉</div><h3>3rd Place</h3><p>2nd Runner-Up Crest — Exceptional grasp of Embedded Systems concepts.</p><span class="badge">🥉 Runner-Up</span></div>
-      <div class="qcard"><div class="qcard-icon">📜</div><h3>All Participants</h3><p>Official IEEE hardcopy participation certificate signed by IEEE DIU SB leadership.</p><span class="badge">📜 Certificate</span></div>
+      <div class="qcard"><div class="qcard-icon">👕</div><h3>Everyone Gets</h3><p>Exclusive IEEE DIU SB SIGHT Group Workshop T-Shirt for all participants — wear your achievement with pride!</p><span class="badge">👕 Free T-Shirt</span></div>
+      <div class="qcard"><div class="qcard-icon">📜</div><h3>All Participants</h3><p>Official IEEE hardcopy participation certificate signed by IEEE DIU SB leadership — for every single attendee.</p><span class="badge">📜 Certificate</span></div>
+      <div class="qcard"><div class="qcard-icon">🖼️</div><h3>Best Team</h3><p>The best Home Automation project team wins a prestigious framed certificate — a trophy to display forever!</p><span class="badge">🖼️ Framed Cert</span></div>
+      <div class="qcard"><div class="qcard-icon">🧠</div><h3>Quiz Competition</h3><p>End-of-workshop quiz on all covered topics. Top scorers earn special recognition at the closing ceremony.</p><span class="badge">🎖️ Recognition</span></div>
     </div>
-    <div class="quiz-note reveal"><strong>Quiz Details:</strong> The offline quiz covers all workshop topics — microcontroller programming, sensor interfacing, wireless communication, and IoT concepts. All participants receive a hardcopy certificate. Top 3 scorers win crests at the closing ceremony.</div>
+    <div class="quiz-note reveal"><strong>🎁 Rewards Summary:</strong> Every participant receives a <strong>T-Shirt</strong> + <strong>IEEE Certificate</strong>. The best Home Automation project team wins a special <strong>framed certificate</strong>. A closing quiz rewards top scorers with extra recognition. Come build, learn, and go home a winner!</div>
   </div>
 </section>
 
@@ -564,38 +503,251 @@
     <h2>Why Attend</h2>
     <p class="ssub">Benefits of joining this IEEE workshop</p>
     <div class="benefits-grid reveal">
-      <div class="bcard"><div class="bico">📜</div><h3>IEEE Certificate</h3><p>Official hardcopy participation certificate from IEEE DIU SB.</p></div>
-      <div class="bcard"><div class="bico">🏆</div><h3>Quiz Crests</h3><p>Top 3 performers win prestigious recognition crests.</p></div>
-      <div class="bcard"><div class="bico">🔧</div><h3>Real Hardware</h3><p>Hands-on time with Arduino, ESP32, sensors and components.</p></div>
-      <div class="bcard"><div class="bico">🌐</div><h3>IEEE Network</h3><p>Connect with IEEE members and technology professionals.</p></div>
-      <div class="bcard"><div class="bico">👨‍💻</div><h3>Expert Training</h3><p>Learn from experienced embedded systems engineer.</p></div>
-      <div class="bcard"><div class="bico">🚀</div><h3>Career Ready</h3><p>Practical IoT skills that strengthen your CV.</p></div>
+      <div class="bcard"><div class="bico">👕</div><h3>Free T-Shirt</h3><p>Every participant receives an exclusive IEEE DIU SB SIGHT Workshop T-Shirt.</p></div>
+      <div class="bcard"><div class="bico">📜</div><h3>IEEE Certificate</h3><p>Official hardcopy participation certificate signed by IEEE DIU SB SIGHT Group.</p></div>
+      <div class="bcard"><div class="bico">🖼️</div><h3>Framed Certificate</h3><p>Best Home Automation project team wins a prestigious framed certificate.</p></div>
+      <div class="bcard"><div class="bico">🏠</div><h3>Build Real Project</h3><p>Walk away having built a fully working Home Automation system from scratch.</p></div>
+      <div class="bcard"><div class="bico">🪪</div><h3>ID Card</h3><p>Official IEEE DIU SB SIGHT Workshop ID card for every participant.</p></div>
+      <div class="bcard"><div class="bico">👨‍💻</div><h3>Expert Training</h3><p>Learn from an experienced embedded systems &amp; IoT engineer hands-on.</p></div>
+      <div class="bcard"><div class="bico">🚀</div><h3>Career Ready</h3><p>Real IoT project + IEEE certificate = a strong addition to your CV.</p></div>
     </div>
   </div>
 </section>
 
+
+
+
 <!-- INSTRUCTOR -->
-<section id="instructor" class="inst-wrap">
-  <div class="c">
-    <h2>Your Instructor</h2>
-    <p class="ssub">Learn from an experienced Embedded Systems engineer</p>
-    <div class="inst-card reveal">
-      <div class="inst-img-w">
-        <img src="https://i.ibb.co.com/mr0NdMVY/IMG-20260216-WA0021.jpg" alt="Md. Mehedi Hasan" class="inst-img" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22160%22 height=%22160%22><rect fill=%22%232d5016%22 width=%22160%22 height=%22160%22/><text fill=%22%238bc34a%22 font-size=%2252%22 x=%2250%25%22 y=%2252%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22>MH</text></svg>'">
-      </div>
-      <div style="flex:1">
-        <div class="inst-name">Md. Mehedi Hasan</div>
-        <div class="inst-role">Embedded Systems Engineer • IoT Specialist</div>
-        <p class="inst-bio">Md. Mehedi Hasan is an experienced engineer specializing in Embedded Systems and Internet of Things. He has built and deployed real microcontroller-based systems, sensor networks, and IoT solutions with cloud integration. As an active IEEE DIU member, Mehedi is passionate about making complex embedded technology accessible through hands-on, project-focused instruction.</p>
-        <div class="inst-extra"><p><strong>Teaching Philosophy:</strong> Learning embedded systems is best done by building real things. Every concept is taught through live demonstration and working hardware.</p></div>
-        <div class="inst-tags" style="margin-top:1rem">
-          <span class="tag">Arduino</span><span class="tag">ESP32</span><span class="tag">IoT Cloud</span><span class="tag">Embedded C</span><span class="tag">Sensors</span>
+<section id="instructor" style="background:linear-gradient(135deg,#0d2008,#1a3a0f,#0a1f06);position:relative;overflow:hidden">
+
+  <!-- Background decoration -->
+  <div style="position:absolute;top:-60px;right:-60px;width:350px;height:350px;background:radial-gradient(circle,rgba(139,195,74,.08),transparent 70%);border-radius:50%;pointer-events:none"></div>
+  <div style="position:absolute;bottom:-40px;left:-40px;width:250px;height:250px;background:radial-gradient(circle,rgba(0,102,153,.1),transparent 70%);border-radius:50%;pointer-events:none"></div>
+
+  <div class="c" style="position:relative;z-index:2">
+    <h2 style="-webkit-text-fill-color:#fff;color:#fff;background:none">Meet Your Instructor</h2>
+    <p class="ssub" style="color:rgba(255,255,255,.6)">Learn from a passionate engineer who builds real things</p>
+
+    <!-- Main Card -->
+    <div class="reveal" style="background:rgba(255,255,255,.04);border:1px solid rgba(139,195,74,.18);border-radius:28px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.4)">
+
+      <!-- Top gradient bar -->
+      <div style="height:5px;background:linear-gradient(90deg,#8bc34a,#4a7c2c,#006699,#8bc34a);background-size:200% 100%;animation:gradientShift 4s ease infinite"></div>
+
+      <div style="padding:2.5rem 3rem">
+        <div style="display:flex;gap:2.5rem;align-items:flex-start;flex-wrap:wrap">
+
+          <!-- Photo + Social -->
+          <div style="display:flex;flex-direction:column;align-items:center;gap:1rem;flex-shrink:0">
+            <div style="position:relative">
+              <!-- Glow ring -->
+              <div style="position:absolute;inset:-5px;border-radius:22px;background:linear-gradient(135deg,#8bc34a,#006699,#8bc34a);background-size:200% 200%;animation:gradientShift 3s ease infinite;z-index:0"></div>
+              <img src="https://i.ibb.co.com/mr0NdMVY/IMG-20260216-WA0021.jpg"
+                alt="Md. Mehedi Hasan"
+                style="width:170px;height:170px;object-fit:cover;border-radius:18px;display:block;position:relative;z-index:1;border:3px solid #0d2008"
+                onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22170%22 height=%22170%22><rect fill=%22%232d5016%22 width=%22170%22 height=%22170%22/><text fill=%22%238bc34a%22 font-size=%2252%22 x=%2250%25%22 y=%2252%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22>MH</text></svg>'">
+            </div>
+
+            <!-- Social Links -->
+            <div style="display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center">
+              <a href="https://www.facebook.com/MehediHasanbd2020" target="_blank"
+                style="width:36px;height:36px;border-radius:10px;background:rgba(24,119,242,.2);border:1px solid rgba(24,119,242,.3);display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:.9rem;transition:all .3s"
+                onmouseover="this.style.transform='translateY(-3px)';this.style.background='rgba(24,119,242,.4)'"
+                onmouseout="this.style.transform='none';this.style.background='rgba(24,119,242,.2)'"
+                title="Facebook">🌐</a>
+              <a href="https://www.linkedin.com/in/mehedi-hasan-b84747244/" target="_blank"
+                style="width:36px;height:36px;border-radius:10px;background:rgba(0,119,181,.2);border:1px solid rgba(0,119,181,.3);display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:.9rem;transition:all .3s"
+                onmouseover="this.style.transform='translateY(-3px)';this.style.background='rgba(0,119,181,.4)'"
+                onmouseout="this.style.transform='none';this.style.background='rgba(0,119,181,.2)'"
+                title="LinkedIn">💼</a>
+              <a href="https://github.com/Mehedi-Hasan-soft-web-support" target="_blank"
+                style="width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:.9rem;transition:all .3s"
+                onmouseover="this.style.transform='translateY(-3px)';this.style.background='rgba(255,255,255,.2)'"
+                onmouseout="this.style.transform='none';this.style.background='rgba(255,255,255,.08)'"
+                title="GitHub">💻</a>
+              <a href="https://sites.google.com/view/mehedihasan497/home" target="_blank"
+                style="width:36px;height:36px;border-radius:10px;background:rgba(139,195,74,.15);border:1px solid rgba(139,195,74,.3);display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:.9rem;transition:all .3s"
+                onmouseover="this.style.transform='translateY(-3px)';this.style.background='rgba(139,195,74,.3)'"
+                onmouseout="this.style.transform='none';this.style.background='rgba(139,195,74,.15)'"
+                title="Portfolio">🌍</a>
+            </div>
+
+            <a href="https://sites.google.com/view/mehedihasan497/" target="_blank"
+              style="display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,#8bc34a,#689f38);color:#fff;text-decoration:none;padding:8px 18px;border-radius:25px;font-size:.78rem;font-weight:700;transition:all .3s;white-space:nowrap"
+              onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 20px rgba(76,175,80,.4)'"
+              onmouseout="this.style.transform='none';this.style.boxShadow='none'">
+              Portfolio
+            </a>
+          </div>
+
+          <!-- Info -->
+          <div style="flex:1;min-width:260px">
+            <div style="display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;margin-bottom:.3rem">
+              <h3 style="font-size:1.8rem;font-weight:900;color:#fff;margin:0">Md. Mehedi Hasan</h3>
+              <span style="background:linear-gradient(135deg,rgba(0,102,153,.4),rgba(0,170,221,.3));color:#7dd8ff;font-size:.68rem;font-weight:700;padding:3px 10px;border-radius:20px;border:1px solid rgba(0,170,221,.3);letter-spacing:1px">IEEE MEMBER</span>
+            </div>
+            <p style="color:#8bc34a;font-size:.85rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:1rem">Embedded Systems Engineer · IoT Specialist</p>
+
+            <p style="color:rgba(255,255,255,.75);font-size:.92rem;line-height:1.9;margin-bottom:1.5rem">
+              Md. Mehedi Hasan is a multi-disciplinary engineer and researcher with a deep expertise in Embedded Systems, IoT, and Software Development. He has hands-on experience building real microcontroller-based systems, sensor networks, and cloud-connected IoT solutions. Beyond engineering, he is an active researcher, event organizer, and educator — with published research, multiple awards, and a rich portfolio of lectures and projects.
+            </p>
+
+            <!-- Skill Tags -->
+            <div style="display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.5rem">
+              <span style="background:rgba(139,195,74,.15);border:1px solid rgba(139,195,74,.3);color:#c5e1a5;padding:4px 12px;border-radius:20px;font-size:.75rem;font-weight:600">Arduino</span>
+              <span style="background:rgba(139,195,74,.15);border:1px solid rgba(139,195,74,.3);color:#c5e1a5;padding:4px 12px;border-radius:20px;font-size:.75rem;font-weight:600">ESP32</span>
+              <span style="background:rgba(139,195,74,.15);border:1px solid rgba(139,195,74,.3);color:#c5e1a5;padding:4px 12px;border-radius:20px;font-size:.75rem;font-weight:600">IoT Cloud</span>
+              <span style="background:rgba(139,195,74,.15);border:1px solid rgba(139,195,74,.3);color:#c5e1a5;padding:4px 12px;border-radius:20px;font-size:.75rem;font-weight:600">Embedded C</span>
+              <span style="background:rgba(139,195,74,.15);border:1px solid rgba(139,195,74,.3);color:#c5e1a5;padding:4px 12px;border-radius:20px;font-size:.75rem;font-weight:600">Home Automation</span>
+              <span style="background:rgba(0,102,153,.2);border:1px solid rgba(0,170,221,.3);color:#7dd8ff;padding:4px 12px;border-radius:20px;font-size:.75rem;font-weight:600">Research</span> 
+            </div>
+
+            <!-- Quick Stats Row -->
+            <!-- <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.8rem">
+              <div style="background:rgba(139,195,74,.08);border:1px solid rgba(139,195,74,.15);border-radius:12px;padding:.9rem .5rem;text-align:center">
+                <div style="font-size:1.4rem;font-weight:900;color:#8bc34a">30+</div>
+                <div style="font-size:.62rem;color:rgba(255,255,255,.45);letter-spacing:1px;text-transform:uppercase;margin-top:2px">Projects</div>
+              </div>
+              <div style="background:rgba(0,102,153,.1);border:1px solid rgba(0,170,221,.15);border-radius:12px;padding:.9rem .5rem;text-align:center">
+                <div style="font-size:1.4rem;font-weight:900;color:#7dd8ff">5+</div>
+                <div style="font-size:.62rem;color:rgba(255,255,255,.45);letter-spacing:1px;text-transform:uppercase;margin-top:2px">Research</div>
+              </div>
+              <div style="background:rgba(255,193,7,.08);border:1px solid rgba(255,193,7,.15);border-radius:12px;padding:.9rem .5rem;text-align:center">
+                <div style="font-size:1.4rem;font-weight:900;color:#ffd54f">🏆</div>
+                <div style="font-size:.62rem;color:rgba(255,255,255,.45);letter-spacing:1px;text-transform:uppercase;margin-top:2px">Awards</div>
+              </div>
+              <div style="background:rgba(156,39,176,.08);border:1px solid rgba(156,39,176,.15);border-radius:12px;padding:.9rem .5rem;text-align:center">
+                <div style="font-size:1.4rem;font-weight:900;color:#ce93d8">📚</div>
+                <div style="font-size:.62rem;color:rgba(255,255,255,.45);letter-spacing:1px;text-transform:uppercase;margin-top:2px">Lectures</div>
+              </div>
+            </div> -->
+          </div>
         </div>
-        <a href="https://sites.google.com/view/mehedihasan497/home" target="_blank" class="inst-link">View Portfolio →</a>
+
+        <!-- Divider -->
+        <div style="height:1px;background:linear-gradient(90deg,transparent,rgba(139,195,74,.3),transparent);margin:2rem 0"></div>
+
+        <!-- Bottom 3 Info Cards -->
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem">
+
+          <div style="background:rgba(139,195,74,.06);border:1px solid rgba(139,195,74,.15);border-radius:14px;padding:1.2rem">
+            <div style="font-size:1.3rem;margin-bottom:.5rem">🔧</div>
+            <h4 style="color:#c5e1a5;font-size:.82rem;font-weight:700;margin-bottom:.5rem;letter-spacing:.5px">Teaching Philosophy</h4>
+            <p style="color:rgba(255,255,255,.6);font-size:.8rem;line-height:1.7;margin:0">Learning embedded systems is best done by building real things. Every concept taught through live demo and working hardware.</p>
+          </div>
+
+          <div style="background:rgba(0,102,153,.08);border:1px solid rgba(0,170,221,.15);border-radius:14px;padding:1.2rem">
+            <div style="font-size:1.3rem;margin-bottom:.5rem">🎓</div>
+            <h4 style="color:#7dd8ff;font-size:.82rem;font-weight:700;margin-bottom:.5rem;letter-spacing:.5px">Education</h4>
+            <p style="color:rgba(255,255,255,.6);font-size:.8rem;line-height:1.7;margin:0">Daffodil International University<br>Active IEEE DIU Student Branch Member &amp; Researcher</p>
+          </div>
+
+          <div style="background:rgba(255,193,7,.06);border:1px solid rgba(255,193,7,.15);border-radius:14px;padding:1.2rem">
+            <div style="font-size:1.3rem;margin-bottom:.5rem">🚀</div>
+            <h4 style="color:#ffd54f;font-size:.82rem;font-weight:700;margin-bottom:.5rem;letter-spacing:.5px">Experience</h4>
+            <p style="color:rgba(255,255,255,.6);font-size:.8rem;line-height:1.7;margin:0">30+ real-world projects including <strong style="color:#ffd54f">Government &amp; funded research projects</strong>, IoT deployments, sensor networks, and cloud-integrated systems.</p>
+          </div>
+
+        </div>
       </div>
+    </div>
+
+  </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- RULEBOOK -->
+<section id="rulebook" style="background:linear-gradient(135deg,#1a3a0f,#0d2008)">
+  <div class="c">
+    <h2 style="-webkit-text-fill-color:#fff;color:#fff;background:none">📋 Workshop Rulebook</h2>
+    <p class="ssub" style="color:rgba(255,255,255,.7)">Read the full rulebook before attending the workshop</p>
+
+    <div style="max-width:860px;margin:0 auto" class="reveal">
+
+      <!-- Action Buttons -->
+      <div style="display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;margin-bottom:1.5rem">
+        <a href="https://docs.google.com/document/d/11YPxr6TfD8qnX0nq5j3mo65POg0Z8nEh/export?format=pdf"
+           target="_blank"
+           style="display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#8bc34a,#689f38);color:#fff;text-decoration:none;padding:11px 22px;border-radius:30px;font-weight:700;font-size:.9rem;box-shadow:0 5px 15px rgba(76,175,80,.35);transition:all .3s"
+           onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='none'">
+          📥 Download PDF
+        </a>
+        <a href="https://docs.google.com/document/d/11YPxr6TfD8qnX0nq5j3mo65POg0Z8nEh/edit"
+           target="_blank"
+           style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);color:#fff;text-decoration:none;padding:11px 22px;border-radius:30px;font-weight:700;font-size:.9rem;border:1px solid rgba(139,195,74,.35);transition:all .3s"
+           onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='none'">
+          🔗 Open in Google Docs
+        </a>
+      </div>
+
+      <!-- Embed Preview -->
+      <div style="border-radius:20px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.4);border:1px solid rgba(139,195,74,.2)">
+        <!-- Top bar -->
+        <div style="background:linear-gradient(135deg,#2d5016,#1a3a0f);padding:.8rem 1.2rem;display:flex;align-items:center;justify-content:space-between">
+          <div style="display:flex;align-items:center;gap:.6rem">
+            <span style="font-size:1.1rem">📄</span>
+            <span style="color:#c5e1a5;font-size:.82rem;font-weight:700">Workshop Rulebook — IEEE DIU SB SIGHT Group</span>
+          </div>
+          <span style="background:rgba(139,195,74,.2);color:#a5d6a7;font-size:.68rem;padding:2px 10px;border-radius:20px;font-weight:700;border:1px solid rgba(139,195,74,.25)">Google Docs</span>
+        </div>
+
+        <!-- iframe -->
+        <iframe
+          src="https://docs.google.com/document/d/11YPxr6TfD8qnX0nq5j3mo65POg0Z8nEh/preview"
+          width="100%"
+          height="600"
+          style="display:block;border:none;background:#fff"
+          allowfullscreen>
+        </iframe>
+
+        <!-- Bottom bar -->
+        <div style="background:linear-gradient(135deg,#2d5016,#1a3a0f);padding:.7rem 1.2rem;text-align:center">
+          <span style="color:rgba(255,255,255,.45);font-size:.75rem">⚠️ By registering, you agree to follow all rules mentioned in this document.</span>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <!-- ENROLLMENT FEE -->
 <section id="fee" style="background:linear-gradient(135deg,#fff9e6,#ffecb3)">
@@ -604,8 +756,8 @@
     <p class="ssub" style="color:#bf360c">Payment required to confirm your seat</p>
     <div style="max-width:520px;margin:0 auto;background:#fff;border-radius:24px;padding:2.5rem;box-shadow:0 12px 40px rgba(0,0,0,.12);border-left:6px solid #ffc107;text-align:center" class="reveal">
       <div style="font-size:3.5rem;margin-bottom:.5rem">💳</div>
-      <div style="font-size:2.8rem;font-weight:900;background:linear-gradient(135deg,#e65100,#ff8f00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.3rem">৳200</div>
-      <div style="font-size:.85rem;color:#888;margin-bottom:1.5rem;letter-spacing:1px;text-transform:uppercase">Registration Fee (One-time)</div>
+      <div style="font-size:2.8rem;font-weight:900;background:linear-gradient(135deg,#e65100,#ff8f00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.3rem">৳250</div>
+      <div style="font-size:.85rem;color:#888;margin-bottom:1.5rem;letter-spacing:1px;text-transform:uppercase">Registration Fee (One-time) — Includes T-Shirt &amp; Certificate</div>
       <div style="background:linear-gradient(135deg,#fce4ec,#f8bbd0);border-radius:16px;padding:1.5rem;margin-bottom:1rem;border:2px dashed #e91e63">
         <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:.8rem">
           <span style="font-size:1.5rem">📱</span>
@@ -641,7 +793,7 @@
         <p class="cert-note">Hardcopy certificates will be distributed at the closing ceremony.</p>
       </div>
       <div class="cert-not-found" id="cert-not-found">
-        <p>No certificate found for this Registration ID. Please check your ID or contact <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="38515d5d5d5c514d4b5a4b515f504c785f55595154165b5755">[email&#160;protected]</a></p>
+        <p>No certificate found for this Registration ID. Please check your ID or contact the organizers.</p>
       </div>
       <p class="cert-note" style="margin-top:1.5rem;color:rgba(255,255,255,.55);font-size:.82rem">Certificates available after workshop concludes.</p>
     </div>
@@ -716,7 +868,7 @@
 <footer>
   <div class="c">
     <div class="flogos">
-      <div class="flogo"><a href="https://www.facebook.com/profile.php?id=61582082533297" target="_blank"><img src="https://lh3.googleusercontent.com/d/1gjTgytjFynd4udSKZxtSrM7FKkPcE9P1" alt="IEEE DIU SB SIGHT"></a><p>IEEE DIU SB SIGHT</p></div>
+      <div class="flogo"><a href="https://www.facebook.com/profile.php?id=61582082533297" target="_blank"><img src="https://lh3.googleusercontent.com/d/1gjTgytjFynd4udSKZxtSrM7FKkPcE9P1" alt="IEEE DIU SB SIGHT"></a><p>IEEE DIU SB SIGHT Group</p></div>
       <div class="flogo"><a href="https://daffodilvarsity.edu.bd/" target="_blank"><img src="https://lh3.googleusercontent.com/d/1FEYg9X-GgktSL0xKevOIWQvhPTlwNSMM" alt="DIU"></a><p>Daffodil University</p></div>
       <div class="flogo"><a href="https://www.facebook.com/diuieee/" target="_blank"><img src="https://lh3.googleusercontent.com/d/181BJcGV2dxrkaVoZRRQCI9yuateewxH5" alt="IEEE DIU SB"></a><p>IEEE DIU Branch</p></div>
     </div>
@@ -736,7 +888,7 @@
   <div class="mbox">
     <div class="mico">🎉</div>
     <div class="mtit">Registration Successful!</div>
-    <p class="msub">You are registered for the <strong>Embedded System &amp; IoT Workshop</strong>. See you soon!</p>
+    <p class="msub">You are registered for the <strong>Embedded System &amp; IoT Workshop</strong>. See you soon — and get ready for your T-Shirt! 👕</p>
     <div class="mid" id="reg-id-display">REG-XXXXXXXXX</div>
     <p style="font-size:.82rem;color:var(--tg);margin-bottom:18px">Save this ID for certificate download.</p>
     <button class="mcl" onclick="closeModal()">Close</button>
@@ -745,7 +897,6 @@
 
 <!-- ADMIN PANEL -->
 <div class="admin-ov" id="admin-ov">
-  <!-- Login -->
   <div id="admin-login-screen" class="admin-login">
     <div class="al-box">
       <div style="font-size:2.5rem;margin-bottom:12px">🔒</div>
@@ -761,33 +912,20 @@
       <button onclick="closeAdmin()" style="background:none;border:none;color:rgba(255,255,255,.4);cursor:pointer;font-size:.85rem">← Cancel</button>
     </div>
   </div>
-
-  <!-- Dashboard -->
   <div id="admin-dashboard" style="display:none">
     <div class="admin-layout">
-      <!-- Sidebar -->
       <div class="admin-sidebar">
         <div class="admin-logo">
           <div style="font-size:1.5rem;margin-bottom:6px">📊</div>
           <div class="admin-logo-title">Admin Panel</div>
-          <div class="admin-logo-sub">IEEE DIU SB SIGHT</div>
+          <div class="admin-logo-sub">IEEE DIU SB SIGHT Group</div>
         </div>
         <nav class="admin-nav">
-          <button class="admin-nav-item active" onclick="showAdminTab('registrations',this)">
-            <span class="admin-nav-icon">👥</span> Registrations
-          </button>
-          <button class="admin-nav-item" onclick="showAdminTab('stats',this)">
-            <span class="admin-nav-icon">📈</span> Statistics
-          </button>
-          <button class="admin-nav-item" onclick="exportCSV()">
-            <span class="admin-nav-icon">📥</span> Export CSV
-          </button>
-          <button class="admin-nav-item" onclick="generateAllPDF()">
-            <span class="admin-nav-icon">📄</span> Export PDF
-          </button>
-          <button class="admin-nav-item" onclick="loadAdminData()">
-            <span class="admin-nav-icon">🔄</span> Refresh
-          </button>
+          <button class="admin-nav-item active" onclick="showAdminTab('registrations',this)"><span class="admin-nav-icon">👥</span> Registrations</button>
+          <button class="admin-nav-item" onclick="showAdminTab('stats',this)"><span class="admin-nav-icon">📈</span> Statistics</button>
+          <button class="admin-nav-item" onclick="exportCSV()"><span class="admin-nav-icon">📥</span> Export CSV</button>
+          <button class="admin-nav-item" onclick="generateAllPDF()"><span class="admin-nav-icon">📄</span> Export PDF</button>
+          <button class="admin-nav-item" onclick="loadAdminData()"><span class="admin-nav-icon">🔄</span> Refresh</button>
         </nav>
         <div style="margin-top:auto;padding:1rem .8rem">
           <div id="admin-user-info" style="font-size:.7rem;color:rgba(255,255,255,.35);margin-bottom:.6rem;padding:.5rem .9rem;word-break:break-all"></div>
@@ -795,8 +933,6 @@
           <button class="admin-close-btn" onclick="closeAdmin()">✕ Close Panel</button>
         </div>
       </div>
-
-      <!-- Main -->
       <div class="admin-main">
         <div class="admin-topbar">
           <div>
@@ -807,32 +943,12 @@
             <button class="atb-btn red" onclick="if(confirm('Delete ALL registrations?'))clearAll()">🗑️ Clear All</button>
           </div>
         </div>
-
-        <!-- Stats -->
         <div class="admin-stats">
-          <div class="ast ast-1">
-            <div class="ast-icon">👥</div>
-            <div class="ast-num" id="stat-total">0</div>
-            <div class="ast-lbl">Total Registered</div>
-          </div>
-          <div class="ast ast-2">
-            <div class="ast-icon">🔵</div>
-            <div class="ast-num" id="stat-ieee">0</div>
-            <div class="ast-lbl">IEEE Members</div>
-          </div>
-          <div class="ast ast-3">
-            <div class="ast-icon">🏛️</div>
-            <div class="ast-num" id="stat-depts">0</div>
-            <div class="ast-lbl">Departments</div>
-          </div>
-          <div class="ast ast-4">
-            <div class="ast-icon">📅</div>
-            <div class="ast-num" id="stat-today">0</div>
-            <div class="ast-lbl">Today's Regs</div>
-          </div>
+          <div class="ast ast-1"><div class="ast-icon">👥</div><div class="ast-num" id="stat-total">0</div><div class="ast-lbl">Total Registered</div></div>
+          <div class="ast ast-2"><div class="ast-icon">🔵</div><div class="ast-num" id="stat-ieee">0</div><div class="ast-lbl">IEEE Members</div></div>
+          <div class="ast ast-3"><div class="ast-icon">🏛️</div><div class="ast-num" id="stat-depts">0</div><div class="ast-lbl">Departments</div></div>
+          <div class="ast ast-4"><div class="ast-icon">📅</div><div class="ast-num" id="stat-today">0</div><div class="ast-lbl">Today's Regs</div></div>
         </div>
-
-        <!-- Table section -->
         <div class="admin-section">
           <div class="admin-section-header">
             <div>
@@ -866,19 +982,8 @@
             <table class="admin-table">
               <thead>
                 <tr>
-                  <th>#</th>
-                  <th>Reg ID</th>
-                  <th>Name</th>
-                  <th>Student ID</th>
-                  <th>Email</th>
-                  <th>Phone</th>
-                  <th>Department</th>
-                  <th>Semester</th>
-                  <th>Level</th>
-                  <th>IEEE</th>
-                  <th>Txn ID</th>
-                  <th>Date</th>
-                  <th>Actions</th>
+                  <th>#</th><th>Reg ID</th><th>Name</th><th>Student ID</th><th>Email</th><th>Phone</th>
+                  <th>Department</th><th>Semester</th><th>Level</th><th>IEEE</th><th>Txn ID</th><th>Date</th><th>Actions</th>
                 </tr>
               </thead>
               <tbody id="admin-tbody"></tbody>
@@ -914,22 +1019,16 @@
 
 <div id="toast"></div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 'use strict';
-
-// ── CONFIG ──
 const SUPABASE_URL = 'https://yyphxuyktgcxojjpoxwu.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl5cGh4dXlrdGdjeG9qanBveHd1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI4OTI3NjUsImV4cCI6MjA4ODQ2ODc2NX0._Uz0ikSAUqMmi8R_wnNcZrOjAm9GIwoI2-eTWT5NBfY';
 const CERT_BASE_URL = 'https://raw.githubusercontent.com/YOUR_GITHUB_USERNAME/certificates/main/';
-
-// ── AUTH STATE ──
-let _authSession = null; // holds Supabase session token
-
+let _authSession = null;
 let demoData = JSON.parse(localStorage.getItem('demoRegistrations') || '[]');
 let allData = [];
 let editingId = null;
 
-// ── MOBILE MENU ──
 let menuOpen = false;
 function toggleMenu() {
   const m = document.getElementById('navMenu');
@@ -943,7 +1042,6 @@ document.addEventListener('click', e => {
   if (m && b && !m.contains(e.target) && !b.contains(e.target)) { menuOpen = false; m.classList.remove('active'); }
 });
 
-// ── SMOOTH SCROLL ──
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', function(e) {
     const id = this.getAttribute('href').slice(1);
@@ -957,7 +1055,6 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   });
 });
 
-// ── DAY TABS ──
 function switchDay(day, btn) {
   document.querySelectorAll('.dtab').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.sc').forEach(c => c.classList.remove('active'));
@@ -965,32 +1062,26 @@ function switchDay(day, btn) {
   document.getElementById('day' + day).classList.add('active');
 }
 
-// ── SCROLL REVEAL ──
 const ro = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
 }, { threshold: 0.1 });
 document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
 
-// ── TOAST ──
 function showToast(msg, type = 'success') {
   const t = document.getElementById('toast');
   t.textContent = msg; t.className = 'show ' + type;
   setTimeout(() => t.className = '', 4200);
 }
 
-// ── MODAL ──
 function closeModal() { document.getElementById('success-modal').classList.remove('show'); }
 
-// ── REG ID ──
 function genRegId() {
   return 'REG-' + Date.now().toString(36).toUpperCase().slice(-5) + '-' + Math.random().toString(36).substr(2, 4).toUpperCase();
 }
 
-// ── SUPABASE ──
 const isSupabaseConfigured = () => SUPABASE_URL !== 'YOUR_SUPABASE_URL';
 
 async function sbFetch(endpoint, options = {}) {
-  // Use authenticated token for admin operations if available
   const token = (_authSession && _authSession.access_token) || SUPABASE_ANON_KEY;
   return fetch(`${SUPABASE_URL}/rest/v1/${endpoint}`, {
     ...options,
@@ -1003,12 +1094,10 @@ async function sbFetch(endpoint, options = {}) {
   });
 }
 
-// ── FORM SUBMIT ──
 document.getElementById('reg-form').addEventListener('submit', async e => {
   e.preventDefault();
   const btn = document.getElementById('submit-btn');
   btn.disabled = true; btn.textContent = 'Submitting...';
-
   const regId = genRegId();
   const payload = {
     registration_id: regId,
@@ -1024,7 +1113,6 @@ document.getElementById('reg-form').addEventListener('submit', async e => {
     motivation: document.getElementById('f-why').value.trim(),
     registered_at: new Date().toISOString()
   };
-
   if (!isSupabaseConfigured()) {
     demoData.push(payload);
     localStorage.setItem('demoRegistrations', JSON.stringify(demoData));
@@ -1034,7 +1122,6 @@ document.getElementById('reg-form').addEventListener('submit', async e => {
     document.getElementById('reg-form').reset();
     return;
   }
-
   try {
     const res = await sbFetch('registrations', {
       method: 'POST',
@@ -1056,7 +1143,6 @@ document.getElementById('reg-form').addEventListener('submit', async e => {
 
 if (isSupabaseConfigured()) document.getElementById('cfg-banner').style.display = 'none';
 
-// ── CERTIFICATE LOOKUP ──
 function lookupCert() {
   const id = document.getElementById('cert-id-input').value.trim().toUpperCase();
   const resultEl = document.getElementById('cert-result');
@@ -1087,103 +1173,68 @@ function downloadCert(e) {
   if (CERT_BASE_URL.includes('YOUR_GITHUB')) { e.preventDefault(); generateCertPDF(name, regid); }
 }
 
-// ── PDF CERT ──
 function generateCertPDF(name, regId, dept) {
   if (typeof window.jspdf === 'undefined') { showToast('PDF library loading... try again shortly', 'error'); return; }
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
   const W = 297, H = 210;
-
-  // ── White background
   doc.setFillColor(255, 255, 255);
   doc.rect(0, 0, W, H, 'F');
-
-  // ── Top gold header bar
   doc.setFillColor(0, 71, 133);
   doc.rect(0, 0, W, 22, 'F');
-
-  // ── Bottom navy footer bar
   doc.setFillColor(0, 71, 133);
   doc.rect(0, H - 18, W, 18, 'F');
-
-  // ── Outer border (navy)
   doc.setDrawColor(0, 71, 133);
   doc.setLineWidth(2.5);
   doc.rect(8, 8, W - 16, H - 16);
-
-  // ── Inner border (gold)
   doc.setDrawColor(180, 140, 30);
   doc.setLineWidth(0.8);
   doc.rect(11, 11, W - 22, H - 22);
-
-  // ── Corner ornaments (gold squares)
   [[10,10],[W-14,10],[10,H-14],[W-14,H-14]].forEach(([x,y]) => {
     doc.setFillColor(180, 140, 30);
     doc.rect(x-2, y-2, 6, 6, 'F');
     doc.setFillColor(255, 255, 255);
     doc.rect(x-0.5, y-0.5, 3, 3, 'F');
   });
-
-  // ── Header text: IEEE DIU SB SIGHT
   doc.setTextColor(255, 255, 255);
   doc.setFontSize(9);
   doc.setFont('helvetica', 'bold');
   doc.text('IEEE DIU STUDENT BRANCH  ·  SIGHT GROUP  ·  DAFFODIL INTERNATIONAL UNIVERSITY', W/2, 13, {align:'center'});
-
-  // ── Gold divider line below header
   doc.setDrawColor(180, 140, 30);
   doc.setLineWidth(1);
   doc.line(20, 25, W-20, 25);
-
-  // ── CERTIFICATE OF PARTICIPATION title
   doc.setTextColor(0, 71, 133);
   doc.setFontSize(18);
   doc.setFont('helvetica', 'bold');
   doc.text('CERTIFICATE OF PARTICIPATION', W/2, 40, {align:'center'});
-
-  // ── Thin gold underline for title
   const titleW = doc.getTextWidth('CERTIFICATE OF PARTICIPATION');
   doc.setDrawColor(180, 140, 30);
   doc.setLineWidth(0.6);
   doc.line(W/2 - titleW/2, 43, W/2 + titleW/2, 43);
-
-  // ── "This is to certify that"
   doc.setTextColor(80, 80, 80);
   doc.setFontSize(10);
   doc.setFont('helvetica', 'normal');
   doc.text('This is to proudly certify that', W/2, 57, {align:'center'});
-
-  // ── Name (large, navy)
   doc.setTextColor(0, 71, 133);
   doc.setFontSize(28);
   doc.setFont('helvetica', 'bold');
   doc.text(name || 'Participant Name', W/2, 78, {align:'center'});
-
-  // ── Gold underline under name
   const nw = doc.getTextWidth(name || 'Participant Name');
   doc.setDrawColor(180, 140, 30);
   doc.setLineWidth(1.2);
   doc.line(W/2 - nw/2 - 5, 82, W/2 + nw/2 + 5, 82);
-
-  // ── "has successfully participated in"
   doc.setTextColor(80, 80, 80);
   doc.setFontSize(10);
   doc.setFont('helvetica', 'normal');
   doc.text('has successfully participated in the', W/2, 93, {align:'center'});
-
-  // ── Workshop name (navy bold)
   doc.setTextColor(0, 71, 133);
   doc.setFontSize(15);
   doc.setFont('helvetica', 'bold');
   doc.text('Embedded System & Internet of Things Workshop', W/2, 105, {align:'center'});
-
-  // ── Organizer
   doc.setTextColor(100, 100, 100);
   doc.setFontSize(9);
   doc.setFont('helvetica', 'normal');
   doc.text('Organized by IEEE DIU SB SIGHT Group  |  Daffodil International University', W/2, 114, {align:'center'});
-
-  // ── Reg ID & Dept
   if (regId || dept) {
     doc.setFillColor(240, 245, 255);
     doc.roundedRect(W/2 - 70, 119, 140, 9, 2, 2, 'F');
@@ -1192,13 +1243,9 @@ function generateCertPDF(name, regId, dept) {
     doc.setFont('helvetica', 'bold');
     doc.text('Reg ID: ' + (regId||'—') + (dept ? '   |   ' + dept : ''), W/2, 125, {align:'center'});
   }
-
-  // ── Divider before signatures
   doc.setDrawColor(200, 200, 200);
   doc.setLineWidth(0.4);
   doc.line(20, 136, W-20, 136);
-
-  // ── Signature lines (3)
   const sigPositions = [55, W/2, W-55];
   const sigLabels = ['Workshop Instructor', 'Chairman, IEEE DIU SB', 'Chair, IEEE DIU SB SIGHT'];
   sigPositions.forEach((x, i) => {
@@ -1214,21 +1261,16 @@ function generateCertPDF(name, regId, dept) {
     doc.setFont('helvetica', 'normal');
     doc.text('Signature', x, 168, {align:'center'});
   });
-
-  // ── Footer text
   doc.setTextColor(220, 220, 220);
   doc.setFontSize(7.5);
   doc.setFont('helvetica', 'normal');
   doc.text('IEEE — Advancing Technology for Humanity  ·  Dhaka, Bangladesh  ·  2026', W/2, H-8, {align:'center'});
-
   doc.save('Certificate_' + (name||'Participant').replace(/\s+/g,'_') + '_IEEE_DIU.pdf');
   showToast('Certificate downloaded!');
 }
 
-// ── ADMIN AUTH ──
 function openAdmin() {
   document.getElementById('admin-ov').classList.add('show');
-  // If already have a valid session, go straight to dashboard
   if (_authSession) {
     document.getElementById('admin-login-screen').style.display = 'none';
     document.getElementById('admin-dashboard').style.display = 'block';
@@ -1242,9 +1284,7 @@ function openAdmin() {
   document.getElementById('admin-err').classList.remove('show');
 }
 
-function closeAdmin() {
-  document.getElementById('admin-ov').classList.remove('show');
-}
+function closeAdmin() { document.getElementById('admin-ov').classList.remove('show'); }
 
 async function adminLogin() {
   const email = document.getElementById('admin-email').value.trim();
@@ -1252,56 +1292,40 @@ async function adminLogin() {
   const errEl = document.getElementById('admin-err');
   const loadEl = document.getElementById('admin-loading');
   const btnEl = document.querySelector('.al-btn');
-
   errEl.classList.remove('show');
   if (!email || !pass) { errEl.textContent = '❌ Please enter email and password.'; errEl.classList.add('show'); return; }
-
   loadEl.style.display = 'block';
   btnEl.disabled = true;
-
   try {
     const res = await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=password`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'apikey': SUPABASE_ANON_KEY
-      },
+      headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_ANON_KEY },
       body: JSON.stringify({ email, password: pass })
     });
-
     const data = await res.json();
-
     if (!res.ok || !data.access_token) {
       errEl.textContent = '❌ ' + (data.error_description || data.msg || 'Invalid email or password.');
       errEl.classList.add('show');
       document.getElementById('admin-pass').value = '';
       return;
     }
-
-    // Verify this user is an authorized admin
     const isAdmin = await checkAdminRole(data.access_token, email);
     if (!isAdmin) {
       errEl.textContent = '❌ Access denied. This account is not an admin.';
       errEl.classList.add('show');
-      // Sign them out immediately
       await fetch(`${SUPABASE_URL}/auth/v1/logout`, {
         method: 'POST',
         headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + data.access_token }
       });
       return;
     }
-
-    // Store session
     _authSession = data;
     sessionStorage.setItem('_ieee_admin_token', data.access_token);
-
-    // Show dashboard
     document.getElementById('admin-login-screen').style.display = 'none';
     document.getElementById('admin-dashboard').style.display = 'block';
     const userInfoEl = document.getElementById('admin-user-info');
     if (userInfoEl) userInfoEl.textContent = '👤 ' + email;
     loadAdminData();
-
   } catch (err) {
     errEl.textContent = '❌ Network error. Check connection.';
     errEl.classList.add('show');
@@ -1312,10 +1336,7 @@ async function adminLogin() {
 }
 
 async function checkAdminRole(token, email) {
-  // Authorized admin emails list
-  const ADMIN_EMAILS = [
-    'hasan2305101497@diu.edu.bd'
-  ];
+  const ADMIN_EMAILS = ['hasan2305101497@diu.edu.bd'];
   return ADMIN_EMAILS.includes(email.toLowerCase().trim());
 }
 
@@ -1340,7 +1361,6 @@ async function adminLogout() {
 }
 
 document.getElementById('admin-pass').addEventListener('keydown', e => { if (e.key === 'Enter') adminLogin(); });
-
 function showAdminTab(tab, btn) {
   document.querySelectorAll('.admin-nav-item').forEach(i => i.classList.remove('active'));
   btn.classList.add('active');
@@ -1349,22 +1369,15 @@ function showAdminTab(tab, btn) {
 async function loadAdminData() {
   if (!isSupabaseConfigured()) {
     allData = JSON.parse(localStorage.getItem('demoRegistrations') || '[]');
-    renderAdminTable(allData);
-    updateStats(allData);
-    return;
+    renderAdminTable(allData); updateStats(allData); return;
   }
   try {
-    const res = await sbFetch('registrations?select=*&order=registered_at.desc', {
-      headers: { 'Accept': 'application/json' }
-    });
+    const res = await sbFetch('registrations?select=*&order=registered_at.desc', { headers: { 'Accept': 'application/json' } });
     const text = await res.text();
     try { allData = JSON.parse(text); } catch { allData = []; }
     if (!Array.isArray(allData)) allData = [];
-    renderAdminTable(allData);
-    updateStats(allData);
-  } catch (err) {
-    showToast('Failed to load: ' + err.message, 'error');
-  }
+    renderAdminTable(allData); updateStats(allData);
+  } catch (err) { showToast('Failed to load: ' + err.message, 'error'); }
 }
 
 function updateStats(data) {
@@ -1380,10 +1393,7 @@ function renderAdminTable(data) {
   const tbody = document.getElementById('admin-tbody');
   const countEl = document.getElementById('table-count');
   if (countEl) countEl.textContent = data.length + ' registrations found';
-  if (!data.length) {
-    tbody.innerHTML = '<tr><td colspan="13" class="no-data">📭 No registrations found.</td></tr>';
-    return;
-  }
+  if (!data.length) { tbody.innerHTML = '<tr><td colspan="13" class="no-data">📭 No registrations found.</td></tr>'; return; }
   tbody.innerHTML = data.map((r, i) => `
     <tr>
       <td class="row-num">${i + 1}</td>
@@ -1451,7 +1461,6 @@ async function clearAll() {
   } catch { showToast('Failed to clear', 'error'); }
 }
 
-// ── EDIT ──
 function openEdit(regId) {
   const r = allData.find(x => x.registration_id === regId);
   if (!r) return;
@@ -1499,7 +1508,6 @@ async function saveEdit() {
   } catch { showToast('Update failed', 'error'); }
 }
 
-// ── EXPORT CSV ──
 function exportCSV() {
   if (!allData.length) { showToast('No data to export', 'error'); return; }
   const headers = ['#','Reg ID','Name','Student ID','Email','Phone','Department','Semester','Level','IEEE Member','Transaction ID','Registered At'];
@@ -1541,19 +1549,14 @@ function generateAllPDF() {
   showToast('PDF exported!');
 }
 
-// ── CERT ENTER KEY ──
 document.getElementById('cert-id-input').addEventListener('keydown', e => { if (e.key === 'Enter') lookupCert(); });
 
-// ── INIT ──
 window.addEventListener('load', () => {
   if (!isSupabaseConfigured()) {
     allData = JSON.parse(localStorage.getItem('demoRegistrations') || '[]');
   }
-  // Restore session token if page was refreshed (same tab/session)
   const savedToken = sessionStorage.getItem('_ieee_admin_token');
-  if (savedToken) {
-    _authSession = { access_token: savedToken };
-  }
+  if (savedToken) { _authSession = { access_token: savedToken }; }
 });
 </script>
 </body>
